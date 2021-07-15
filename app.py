@@ -54,4 +54,4 @@ class User(db.Model):
 admin.add_view(ModelView(User, db.session))
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run()
