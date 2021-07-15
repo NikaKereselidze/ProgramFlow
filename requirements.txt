@@ -1,0 +1,5 @@
+flask
+flask_sqlalchemy
+flask_admin
+flask_admin.contrib.sqla
+smtplib
