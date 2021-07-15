@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 import smtplib
-import contact_credentials
 import json
 
 app = Flask(__name__)
@@ -16,8 +15,11 @@ admin = Admin(app, url='/2d457c9471be33362fd6fsa7sa89asdf7a0fsaf0')
 
 def send_mail():
     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+        email_address = 'emailpython17@gmail.com'
+        passwd = 'vtvvutjvppuxjktk'
+        receiver = ('nika17nikalai@gmail.com', 'nika17nikolai@gmail.com')
         smtp.starttls()
-        smtp.login(contact_credentials.email_address, contact_credentials.passwd)
+        smtp.login(email_address, passwd)
         sub = '{} contacted you from your website'.format(request.form['email'])
         body = {
             'Name':'{}'.format(request.form['name']),
@@ -25,7 +27,7 @@ def send_mail():
             'Message':'{}'.format(request.form['message'])
             }
         msg = 'Subject: {0}\n\n{1}'.format(sub, json.dumps(body))
-        smtp.sendmail(contact_credentials.email_address, contact_credentials.receiver, msg)
+        smtp.sendmail(email_address, receiver, msg)
 
 
 @app.route('/')
