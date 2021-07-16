@@ -49,17 +49,17 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
         if 'user' in session:
-            return redirect(url_for('logged'))
+            return redirect(url_for('home'))
         if user:
             if check_password_hash(user.password, password):
-                flash('Successfully logged in!')
+                flash('წარმატებით შესრულდა ექაუნთზე შესვლა..!')
                 session['user'] = user.username
                 return redirect(url_for('home'))
             elif not check_password_hash(user.password, password):
-                flash('Incorrect password.. Try again.')
+                flash('არასწორი პაროლია.. გთხოვთ სცადოთ ახლიდან.')
                 return redirect(url_for('login'))
         if not user:
-            flash('This Email does not exist.. Try again.')
+            flash('ეს Email-ი არ არსებობს.. გთხოვთ სცადოთ ახლიდან.')
             return redirect(url_for('login'))
 
     return render_template("login.html")
@@ -81,9 +81,9 @@ def signup():
 @app.route('/logout')
 def logout():
     if 'user' in session:
-        flash('Successfully logged out')
-    elif not 'user' in session:
-        flash('You are not logged in')
+        flash('გამოხვედით ექაუნთიდან!')
+    elif 'user' not in session:
+        flash('არ ხართ ექაუნთზე შესული')
     session.pop('user', None)
     return redirect(url_for('login'))
 
