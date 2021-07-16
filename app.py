@@ -7,6 +7,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib
 import json
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret key'
@@ -118,5 +119,7 @@ class Questions(db.Model):
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Questions, db.session))
 
+port = int(os.environ.get('PORT', 5000))
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=port, debug=True)
