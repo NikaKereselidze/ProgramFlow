@@ -17,7 +17,7 @@ def send_mail():
     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
         email_address = 'emailpython17@gmail.com'
         passwd = 'vtvvutjvppuxjktk'
-        receiver = ('nika17nikalai@gmail.com', 'nika17nikolai@gmail.com')
+        receiver = ('nika17nikalai@gmail.com', 'nikochopikashvili@yahoo.com', 'giooku.com@gmail.com')
         smtp.starttls()
         smtp.login(email_address, passwd)
         sub = '{} contacted you from your website'.format(request.form['email'])
