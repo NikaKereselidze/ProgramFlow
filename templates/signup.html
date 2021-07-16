@@ -1,0 +1,37 @@
+{%extends 'base.html'%}
+{%block content%}
+
+{%with flashed = get_flashed_messages()%}
+{%if flashed%}
+{%for flash in flashed%}
+{{flash}}
+{%endfor%}
+{%endif%}
+{%endwith%}
+
+<div class="authDiv">
+    <form action="" method="POST">
+            <br>
+        <div class="authUsernameDiv">
+            <p><b>შეიყვანე Username-ი</b></p>
+            <input name="username" class="authUsername"  type="text">
+        </div>
+            <br>
+        <div class="authEmailDiv">
+            <p><b>შეიყვანე Email-ი</b></p>
+            <input name="email" class="authEmail"  type="text">
+        </div>
+            <br>
+        <div class="authPasswordDiv">
+            <p><b>შეიყვანე პაროლი</b></p>
+            <input name="password" class="authPassword"  type="password">
+        </div>
+            <br><br>
+        <div class="authSignupSubmitDiv">
+            <button type="submit" class="authSubmit">რეგისტრაცია</button>
+        </div>
+            <br>
+    </form>
+</div>
+
+{%endblock%}

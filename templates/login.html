@@ -1,0 +1,36 @@
+{%extends 'base.html'%}
+{%block content%}
+
+{%with flashed = get_flashed_messages()%}
+{%if flashed%}
+{%for flash in flashed%}
+{{flash}}
+{%endfor%}
+{%endif%}
+{%endwith%}
+
+<div class="authDiv">
+    <form action="" method="POST">
+            <br>
+        <div class="authEmailDiv">
+            <p><b>შეიყვანე Email-ი</b></p>
+            <input name="email" class="authEmail"  type="text">
+        </div>
+            <br>
+        <div class="authPasswordDiv">
+            <p><b>შეიყვანე პაროლი</b></p>
+            <input name="password" class="authPassword"  type="password">
+        </div>
+            <br><br>
+        <div class="authLoginSubmitDiv">
+            <button type="submit" class="authSubmit">შესვლა</button>
+        </div>
+            <br>
+    </form>
+</div>
+    <br>
+<div style="display: flex; justify-content:center;margin-left:5%">
+    <p>არ ხარ დარეგისტრირებული? <a href="/signup" style="text-decoration:none;color:rgb(0,140,250)">დარეგისტრირდი</a></p>
+</div>
+
+{%endblock%}

@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+{%block content%}
+
+{%with flashed = get_flashed_messages()%}
+{%if flashed%}
+{%for flash in flashed%}
+{{flash}}
+{%endfor%}
+{%endif%}
+{%endwith%}
+
+<br><br>
+
+{%if condition == 'True'%}
+<h2>Hi {{username}}!</h2>
+{%elif condition == 'False'%}
+<p style="margin-left:8%">არ ხარ შესული ექაუნთზე! <a href="/login" style="text-decoration:none;color:rgb(0,140,250)">შესვლა</a></p>
+{%endif%}
+
+{%endblock%}

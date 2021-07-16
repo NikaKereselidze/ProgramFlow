@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>ProgramFlow - პასუხი ყველა შეკითხვაზე</title>
+</head>
+<body>
+    <ul>
+        <a href="/"><li>მთავარი</li></a>
+        <a href="/contact"><li>კონტაქტი</li></a>
+        {%block login_sys%}
+        <a href="/signup"><li style="float: right;">რეგისტრაცია</li></a>
+        <a href="/login"><li style="float: right;">შესვლა</li></a>
+        {%endblock%}
+    </ul>
+    {%block content%}{%endblock%}
+</body>
+</html>
