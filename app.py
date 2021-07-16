@@ -119,7 +119,7 @@ class Questions(db.Model):
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Questions, db.session))
 
-port = int(os.environ.get('PORT', 33507))
+port = int(os.getenv('PORT'))
 
 if __name__ == '__main__':
-    app.run(port=33507, debug=True)
+    app.run(port=port, debug=True)
