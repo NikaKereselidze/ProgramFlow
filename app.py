@@ -125,4 +125,4 @@ admin.add_view(ModelView(Questions, db.session))
 port = os.getenv('PORT', 5000)
 
 if __name__ == '__main__':
-    app.run(port=int(port), debug=True)
+    app.run(port=int(port))
