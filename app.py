@@ -120,6 +120,17 @@ def add_post():
     else:
         return render_template('add_post.html')
 
+@app.route('/posts/delete/<int:id>')
+def delete(id):
+    question_delete = Questions.query.get(id)
+    try:
+        db.session.delete(question_delete)
+        db.session.commit()
+        return redirect(url_for('posts'))
+    except:
+        flash("Question couldn't be deleted..")
+        return redirect(url_for('posts'))
+
 
 @app.errorhandler(404)
 def error(e):
