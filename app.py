@@ -108,6 +108,24 @@ def error(e):
 def error(e):
     return render_template('404.html'), 500
 
+@app.route("/posts/add", methods=['POST', 'GET'] )
+def posts_add():
+    if 'user' in session:
+        if request.method == 'POST':
+            title = request.form['title']
+            error = request.form['error']
+            question = request.form['question']
+        createdPost = Questions(title=title, error=error, question=question)
+
+        db.session.add(createdPost)
+        db.session.commit()
+
+        if createdPost:
+            return render_template('#', title=createdPost.title, error=createdPost.error, question=createdPost.question)
+        else:
+            return render_template('')
+    else:
+        return redirect(url_for('home'))
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -117,6 +135,8 @@ class User(db.Model):
 
 class Questions(db.Model):
     question_id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(1000), nullable=False)
+    error = db.Column(db.String(10000))
     question = db.Column(db.String(5000))
 
 admin.add_view(ModelView(User, db.session))
