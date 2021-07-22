@@ -4,7 +4,7 @@
 {%with flashed = get_flashed_messages()%}
 {%if flashed%}
 {%for flash in flashed%}
-{{flash}}
+<p class='flash'>{{flash}}</p>
 {%endfor%}
 {%endif%}
 {%endwith%}

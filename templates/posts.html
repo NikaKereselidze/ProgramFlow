@@ -1,13 +1,22 @@
 {%extends 'base.html'%}
 {%block content%}
 
+{%with flashed = get_flashed_messages()%}
+{%if flashed%}
+{%for flash in flashed%}
+{{flash}}
+<br><br>
+{%endfor%}
+{%endif%}
+{%endwith%}
+
 
 {%for post in posts%}
 
-{{post.question}} <a href='posts/delete/{{post.question_id}}'>Delete post</a>
+{{post.post}} <a href='posts/delete/{{post.post_id}}'>Delete post</a>
 <br>
 {%endfor%}
 
-<h1><a href='/posts/add'>+</a></h1>
+<h1><a href='/posts/add' style='color: black; text-decoration: none;'>+</a></h1>
 
 {%endblock%}

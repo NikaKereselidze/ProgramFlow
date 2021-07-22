@@ -72,7 +72,7 @@ def signup():
         created_user = User(username=username, password=generate_password_hash(password, method='sha256'), email=email)
         db.session.add(created_user)
         db.session.commit()
-
+        flash('Successfully created an account.')
         return redirect(url_for('home'))
     
     return render_template("signup.html")
@@ -102,10 +102,14 @@ def send_contact():
 
 @app.route('/posts', methods=['POST', 'GET'])
 def posts():
-    posts = {}
-
+    if request.method == 'POST':
+        search = request.form['search']
+        if search:
+            posts = Posts.query.filter(Posts.post.contains(search))
+    else:
+        posts = Posts.query.all()
     if 'user' in session:
-        return render_template('posts.html', posts=Questions.query.all())
+        return render_template('posts.html', posts=posts)
     else:
         return redirect(url_for('home'))
 
@@ -113,32 +117,30 @@ def posts():
 def add_post():
     if request.method == 'POST':
         title = request.form['title']
-        created_title = Questions(question=title)
+        created_title = Posts(post=title)
         db.session.add(created_title)
         db.session.commit()
+        flash('Successfully created the post')
         return redirect(url_for('posts'))
     else:
         return render_template('add_post.html')
 
 @app.route('/posts/delete/<int:id>')
 def delete(id):
-    question_delete = Questions.query.get(id)
+    post_delete = Posts.query.get(id)
     try:
-        db.session.delete(question_delete)
+        db.session.delete(post_delete)
         db.session.commit()
+        flash('Successfully deleted the post..')
         return redirect(url_for('posts'))
     except:
-        flash("Question couldn't be deleted..")
+        flash("Post couldn't be deleted..")
         return redirect(url_for('posts'))
 
 
 @app.errorhandler(404)
 def error(e):
     return render_template('404.html'), 404
-
-@app.errorhandler(500)
-def error(e):
-    return render_template('404.html'), 500
 
 
 class User(db.Model):
@@ -147,12 +149,13 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(16), nullable=False)
 
-class Questions(db.Model):
-    question_id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.String(5000))
+class Posts(db.Model):
+    post_id = db.Column(db.Integer, primary_key=True)
+    post = db.Column(db.String(5000))
+
 
 admin.add_view(ModelView(User, db.session))
-admin.add_view(ModelView(Questions, db.session))
+admin.add_view(ModelView(Posts, db.session))
 
 port = os.getenv('PORT', 5000)
 
