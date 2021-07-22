@@ -2,18 +2,18 @@ from flask import Flask, render_template, url_for, redirect, request, session, f
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-from flask_login import UserMixin
+from flask_login import UserMixin, login_required, current_user, LoginManager
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib
 import json
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret key'
+app.config['SECRET_KEY'] = 'secretkey'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlite.db'
 
-db = SQLAlchemy(app)
 
+db = SQLAlchemy(app)
 admin = Admin(app)
 
 def send_mail():
@@ -100,6 +100,27 @@ def send_contact():
         return render_template('contact_failed.html')
 
 
+@app.route('/posts', methods=['POST', 'GET'])
+def posts():
+    posts = {}
+
+    if 'user' in session:
+        return render_template('posts.html', posts=Questions.query.all())
+    else:
+        return redirect(url_for('home'))
+
+@app.route('/posts/add', methods=['POST', 'GET'])
+def add_post():
+    if request.method == 'POST':
+        title = request.form['title']
+        created_title = Questions(question=title)
+        db.session.add(created_title)
+        db.session.commit()
+        return redirect(url_for('posts'))
+    else:
+        return render_template('add_post.html')
+
+
 @app.errorhandler(404)
 def error(e):
     return render_template('404.html'), 404
@@ -108,24 +129,6 @@ def error(e):
 def error(e):
     return render_template('404.html'), 500
 
-@app.route("/posts/add", methods=['POST', 'GET'] )
-def posts_add():
-    if 'user' in session:
-        if request.method == 'POST':
-            title = request.form['title']
-            error = request.form['error']
-            question = request.form['question']
-        createdPost = Questions(title=title, error=error, question=question)
-
-        db.session.add(createdPost)
-        db.session.commit()
-
-        if createdPost:
-            return render_template('#', title=createdPost.title, error=createdPost.error, question=createdPost.question)
-        else:
-            return render_template('')
-    else:
-        return redirect(url_for('home'))
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -135,8 +138,6 @@ class User(db.Model):
 
 class Questions(db.Model):
     question_id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(1000), nullable=False)
-    error = db.Column(db.String(10000))
     question = db.Column(db.String(5000))
 
 admin.add_view(ModelView(User, db.session))
@@ -145,4 +146,4 @@ admin.add_view(ModelView(Questions, db.session))
 port = os.getenv('PORT', 5000)
 
 if __name__ == '__main__':
-    app.run(port=int(port))
+    app.run(port=int(port), debug=True)
