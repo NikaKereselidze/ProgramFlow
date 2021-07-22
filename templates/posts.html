@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+{%block content%}
+
+
+{%for post in posts%}
+{{post.question}}
+<br>
+{%endfor%}
+
+<h1><a href='/posts/add'>+</a></h1>
+
+{%endblock%}
