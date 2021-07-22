@@ -3,7 +3,8 @@
 
 
 {%for post in posts%}
-{{post.question}}
+
+{{post.question}} <a href='posts/delete/{{post.question_id}}'>Delete post</a>
 <br>
 {%endfor%}
 
