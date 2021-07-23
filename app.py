@@ -47,8 +47,6 @@ def login():
         email = request.form['email']
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
-        if 'user' in session:
-            return redirect(url_for('logged'))
         if user:
             if check_password_hash(user.password, password):
                 flash('Successfully logged in!')
@@ -60,11 +58,16 @@ def login():
         if not user:
             flash('This Email does not exist.. Try again.')
             return redirect(url_for('login'))
-
+    if 'user' in session:
+        flash('Already signed in..')
+        return redirect(url_for('home'))
     return render_template("login.html")
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    if 'user' in session:
+        flash('Already signed in..')
+        return redirect(url_for('home'))
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']
@@ -104,7 +107,9 @@ def send_contact():
 def posts():
     if request.method == 'POST':
         search = request.form['search']
-        if search:
+        if search == '':
+            return redirect(url_for('posts'))
+        elif search != '':
             posts = Posts.query.filter(Posts.post.contains(search))
     else:
         posts = Posts.query.all()
@@ -117,7 +122,7 @@ def posts():
 def add_post():
     if request.method == 'POST':
         title = request.form['title']
-        created_title = Posts(post=title)
+        created_title = Posts(post=title, author=session['user'])
         db.session.add(created_title)
         db.session.commit()
         flash('Successfully created the post')
@@ -128,6 +133,9 @@ def add_post():
 @app.route('/posts/delete/<int:id>')
 def delete(id):
     post_delete = Posts.query.get(id)
+    if post_delete.author != session['user']:
+        flash('You are not the author of the post')
+        return redirect(url_for('posts'))
     try:
         db.session.delete(post_delete)
         db.session.commit()
@@ -151,7 +159,10 @@ class User(db.Model):
 
 class Posts(db.Model):
     post_id = db.Column(db.Integer, primary_key=True)
-    post = db.Column(db.String(5000))
+    author = db.Column(db.String(10000))
+    post = db.Column(db.Text)
+    error = db.Column(db.Text)
+    question = db.Column(db.Text)
 
 
 admin.add_view(ModelView(User, db.session))

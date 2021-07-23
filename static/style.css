@@ -169,6 +169,86 @@ body {
     font-size: 22px;
 }
 
+.searchInput {
+    border: lightgray 1px solid;
+    border-radius: 3px;
+    padding: 10px;
+    margin-top: 13px;
+    margin-left: 10%;
+}
+
+.searchButton {
+    border: lightgray 1px solid;
+    border-radius: 3px;
+    background-color: white;
+    padding:10px;
+}
+
+.searchButton:hover {
+    cursor: pointer;
+    color: gray;
+}
+
+.addPostDiv {
+    display: flex;
+    justify-content: left;
+    margin-top: 8vh;
+    margin-left: 40%;
+    margin-right: 35%;
+    border: white 1px solid;
+    background-color: white;
+    box-shadow: 0px 0px 20px lightgrey;
+    border-radius: 7px;
+}
+
+.addPostTitle{
+    padding: 15px;
+    font-size: 19px;
+    border: lightgray 1px solid;
+    border-radius: 3px;
+}
+
+.addPostError {
+    padding: 15px;
+    font-size: 19px;
+    border: lightgray 1px solid;
+    border-radius: 3px;
+}
+
+.addPostQuestion {
+    padding: 15px;
+    font-size: 19px;
+    border: lightgray 1px solid;
+    border-radius: 3px;
+}
+
+.addPostSubmit {
+    background-color: white;
+    border: rgb(150,150,150) 1px solid;
+    border-radius: 4px;
+    font-size: 20px;
+    padding:15px;
+    color: white;
+    background-color: rgb(45, 143, 255);
+    box-shadow: 0px 0px 20px 2px rgb(100,100,100);
+}
+
+.addPostTitleDiv {
+    margin-left: 15%;
+}
+
+.addPostErrorDiv {
+    margin-left: 15%;
+}
+
+.addPostQuestionDiv {
+    margin-left: 15%;
+}
+
+.addPostSubmitDiv {
+    margin-left: 40%;
+}
+
 ul {
     list-style-type:none;
     margin: 0;

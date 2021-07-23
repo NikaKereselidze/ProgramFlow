@@ -1,7 +1,31 @@
 {%extends 'base.html'%}
 {%block content%}
-<form method='POST', action=''>
-<input name='title'>
-<button type='submit'>Add</button>
-</form>
+
+<div>
+    <p>Ask a question</p>
+</div>
+
+<div class='addPostDiv'>
+    <form method='POST', action=''>
+        <div class='addPostTitleDiv'>
+            <p><b>პოსტის სახელი</b></p>
+            <input name='title' class='addPostTitle'>
+        </div>
+        <br>
+        <div class='addPostErrorDiv'>
+            <p><b>ერორი</b></p>
+            <input type="text" name="error" class='addPostError'>
+        </div>
+        <br>
+        <div class='addPostQuestionDiv'>
+            <p><b>კითხვა</b></p>
+            <input type="text" name='question' class='addPostQuestion'>
+        </div>
+        <br><br>
+        <div class='addPostSubmitDiv'>
+            <button type='submit' class='addPostSubmit'>Add</button>
+        </div>
+    </form>
+</div>
+
 {%endblock%}

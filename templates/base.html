@@ -11,14 +11,14 @@
     <ul>
         <a href="/"><li>მთავარი</li></a>
         <a href="/contact"><li>კონტაქტი</li></a>
-        <form method='POST'>
-            <input type="text" name='search' class='searchInput' placeholder="Search..">
-            <button class='searchButton'>Search..</button>
-        </form>
         {%block login_sys%}
         <a href="/signup"><li style="float: right;">რეგისტრაცია</li></a>
         <a href="/login"><li style="float: right;">შესვლა</li></a>
         {%endblock%}
+        <form method='POST' action='/posts'>
+            <input type="text" name='search' class='searchInput' size='70' placeholder="Search..">
+            <button class='searchButton'>Search..</button>
+        </form>
     </ul>
     {%block content%}{%endblock%}
 </body>
