@@ -12,8 +12,7 @@
 
 
 {%for post in posts%}
-
-{{post.post}} <a href='posts/delete/{{post.post_id}}'>Delete post</a>
+<a href='/posts/{{post.post_id}}'>{{post.post}}</a>
 <br>
 {%endfor%}
 

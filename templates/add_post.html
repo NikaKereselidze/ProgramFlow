@@ -1,30 +1,29 @@
 {%extends 'base.html'%}
 {%block content%}
 
-<div>
-    <p>Ask a question</p>
-</div>
 
 <div class='addPostDiv'>
     <form method='POST', action=''>
+        <br>
         <div class='addPostTitleDiv'>
-            <p><b>პოსტის სახელი</b></p>
-            <input name='title' class='addPostTitle'>
+            <p><b>პოსტის სათაური</b></p>
+            <input name='title' class='addPostTitle' size="97" required>
         </div>
         <br>
         <div class='addPostErrorDiv'>
-            <p><b>ერორი</b></p>
-            <input type="text" name="error" class='addPostError'>
+            <p><b>კოდი</b></p>
+            <textarea name="error" class='addPostError' cols="98" rows="10" required></textarea>
         </div>
         <br>
         <div class='addPostQuestionDiv'>
             <p><b>კითხვა</b></p>
-            <input type="text" name='question' class='addPostQuestion'>
+            <textarea name='question' class='addPostQuestion' cols="98" rows='4' required></textarea>
         </div>
-        <br><br>
+        <br>
         <div class='addPostSubmitDiv'>
-            <button type='submit' class='addPostSubmit'>Add</button>
+            <button type='submit' class='addPostSubmit'>დამატება</button>
         </div>
+        <br>
     </form>
 </div>
 

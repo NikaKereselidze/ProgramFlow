@@ -49,24 +49,24 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
-                flash('Successfully logged in!')
+                flash('წარმატებით შეხვედით ექაუნთზე..')
                 session['user'] = user.username
                 return redirect(url_for('home'))
             elif not check_password_hash(user.password, password):
                 flash('Incorrect password.. Try again.')
                 return redirect(url_for('login'))
         if not user:
-            flash('This Email does not exist.. Try again.')
+            flash('ეს ემაილი არ არსებობს. გთხოვთ სცადოთ ახლიდან..')
             return redirect(url_for('login'))
     if 'user' in session:
-        flash('Already signed in..')
+        flash('უკვე შესული ხართ..')
         return redirect(url_for('home'))
     return render_template("login.html")
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if 'user' in session:
-        flash('Already signed in..')
+        flash('უკვე შესული ხართ..')
         return redirect(url_for('home'))
     if request.method == "POST":
         username = request.form['username']
@@ -75,7 +75,7 @@ def signup():
         created_user = User(username=username, password=generate_password_hash(password, method='sha256'), email=email)
         db.session.add(created_user)
         db.session.commit()
-        flash('Successfully created an account.')
+        flash('წარმატებით შეიქმნა ექაუნთი..')
         return redirect(url_for('home'))
     
     return render_template("signup.html")
@@ -83,9 +83,9 @@ def signup():
 @app.route('/logout')
 def logout():
     if 'user' in session:
-        flash('Successfully logged out')
+        flash('წარმატებით გამოხვედით ექაუნთიდან..')
     elif not 'user' in session:
-        flash('You are not logged in')
+        flash('არ ხართ შესული ექაუნთზე..')
     session.pop('user', None)
     return redirect(url_for('login'))
 
@@ -120,29 +120,74 @@ def posts():
 
 @app.route('/posts/add', methods=['POST', 'GET'])
 def add_post():
-    if request.method == 'POST':
-        title = request.form['title']
-        created_title = Posts(post=title, author=session['user'])
-        db.session.add(created_title)
-        db.session.commit()
-        flash('Successfully created the post')
-        return redirect(url_for('posts'))
+    if 'user' in session:
+        if request.method == 'POST':
+            title = request.form['title']
+            error = request.form['error']
+            question = request.form['question']
+            created_title = Posts(post=title, author=session['user'], error=error, question=question)
+            db.session.add(created_title)
+            db.session.commit()
+            flash('წარმატებით შეიქმნა პოსტი..')
+            return redirect(url_for('posts'))
+        else:
+            return render_template('add_post.html')
     else:
-        return render_template('add_post.html')
+        return redirect(url_for('home'))
+
+@app.route('/posts/<int:id>')
+def post_page(id):
+    post_data = Posts.query.get(id)
+    if 'user' in session:
+        if post_data:
+            return render_template('post_page.html', post_data=post_data)
+        else:
+            flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..')
+            return redirect(url_for('posts'))
+    else:
+        return redirect(url_for('home'))
+
+@app.route('/posts/update1/<int:id>', methods=['POST', 'GET'])
+def update_title(id):
+    if request.method == 'POST':
+        post_update = Posts.query.get(id)
+        post_update.post = request.form['update']
+        db.session.commit()
+        return redirect(url_for("posts"))
+    return render_template('update_post.html')
+
+@app.route('/posts/update2/<int:id>', methods=['POST', 'GET'])
+def update_code(id):
+    if request.method == 'POST':
+        post_update = Posts.query.get(id)
+        post_update.error = request.form['update']
+        db.session.commit()
+        return redirect(url_for("posts"))
+    return render_template('update_post.html')
+
+@app.route('/posts/update3/<int:id>', methods=['POST', 'GET'])
+def update_question(id):
+    if request.method == 'POST':
+        post_update = Posts.query.get(id)
+        post_update.question = request.form['update']
+        db.session.commit()
+        return redirect(url_for("posts"))
+    return render_template('update_post.html')
+
 
 @app.route('/posts/delete/<int:id>')
 def delete(id):
     post_delete = Posts.query.get(id)
     if post_delete.author != session['user']:
-        flash('You are not the author of the post')
+        flash('ვერ მოხერხდა პოსტის წაშლა. თქვენ არ ხართ ამ პოსტის ავტორი..')
         return redirect(url_for('posts'))
     try:
         db.session.delete(post_delete)
         db.session.commit()
-        flash('Successfully deleted the post..')
+        flash('წარმატებით წაიშალა პოსტი..')
         return redirect(url_for('posts'))
     except:
-        flash("Post couldn't be deleted..")
+        flash("პოსტი ვერ წაიშალა..")
         return redirect(url_for('posts'))
 
 

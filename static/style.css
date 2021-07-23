@@ -192,9 +192,9 @@ body {
 .addPostDiv {
     display: flex;
     justify-content: left;
-    margin-top: 8vh;
-    margin-left: 40%;
-    margin-right: 35%;
+    margin-top: 6vh;
+    margin-left: 10%;
+    margin-right: 10%;
     border: white 1px solid;
     background-color: white;
     box-shadow: 0px 0px 20px lightgrey;
@@ -233,27 +233,32 @@ body {
     box-shadow: 0px 0px 20px 2px rgb(100,100,100);
 }
 
+.addPostSubmit:hover {
+    background-color: rgb(45, 103, 150);
+    cursor: pointer;
+}
+
 .addPostTitleDiv {
-    margin-left: 15%;
+    margin-left: 5%;
 }
 
 .addPostErrorDiv {
-    margin-left: 15%;
+    margin-left: 5%;
 }
 
 .addPostQuestionDiv {
-    margin-left: 15%;
+    margin-left: 5%;
 }
 
 .addPostSubmitDiv {
-    margin-left: 40%;
+    margin-left: 50%;
 }
 
 ul {
     list-style-type:none;
+    overflow: hidden;
     margin: 0;
     padding: 0;
-    overflow: hidden;
     background-color: white;
     font-size:20px;
     box-shadow: 0px 5px 5px 0px lightgray;
