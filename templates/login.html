@@ -9,21 +9,24 @@
 {%endif%}
 {%endwith%}
 
-<div class="authDiv">
+<a href='/login' class='loginGoogle'><img src="{{url_for('static', filename='images/google_logo.png')}}" width="20" height="20" style='margin-right:10px;'>შესვლა Google-ით</a>
+<a href='/login' class='loginGithub'><img src="{{url_for('static', filename='images/github_logo.png')}}" width="20" height="20" style='margin-right:10px;'>შესვლა Github-ით</a>
+<a href='/login' class='loginFacebook'><img src="{{url_for('static', filename='images/facebook_logo.png')}}" width="20" height="20" style='margin-right:10px;'>შესვლა Facebook-ით</a>
+<div class="loginDiv">
     <form action="" method="POST">
             <br>
         <div class="authEmailDiv">
-            <p><b>შეიყვანე Email-ი</b></p>
-            <input name="email" class="authEmail"  type="text">
+            <p>Email-ი</p>
+            <input name="email" class="loginEmail" type="text">
         </div>
             <br>
         <div class="authPasswordDiv">
-            <p><b>შეიყვანე პაროლი</b></p>
-            <input name="password" class="authPassword"  type="password">
+            <p>პაროლი</p>
+            <input name="password" class="loginPassword" type="password">
         </div>
             <br><br>
         <div class="authLoginSubmitDiv">
-            <button type="submit" class="authSubmit">შესვლა</button>
+            <button type="submit" class="loginSubmit"><div class='loginSubmitStretch'>შესვლა</div></button>
         </div>
             <br>
     </form>

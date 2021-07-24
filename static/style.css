@@ -5,10 +5,100 @@ body {
     background-color: #eff0f1;
 }
 
-.authDiv {
+.loginGoogle {
+    display:flex;
+    justify-content: center;
+    margin-top:10vh;
+    margin-left: 40%;
+    margin-right: 35%;
+    border: lightgray 1px solid;
+    border-radius: 7px;
+    background-color: white;
+    padding: 15px;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+}
+
+.loginGithub {
+    display:flex;
+    justify-content: center;
+    margin-left: 40%;
+    margin-right: 35%;
+    border: lightgray 1px solid;
+    border-radius: 7px;
+    background-color: black;
+    padding: 15px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    margin-top:10px;
+}
+
+.loginFacebook {
+    display:flex;
+    justify-content: center;
+    margin-left: 40%;
+    margin-right: 35%;
+    border: lightgray 1px solid;
+    border-radius: 7px;
+    background-color: #102C76;
+    padding: 15px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    margin-top:10px;
+}
+
+.signupGoogle {
+    display:flex;
+    justify-content: center;
+    margin-top:5vh;
+    margin-left: 58%;
+    margin-right: 17%;
+    border: lightgray 1px solid;
+    border-radius: 7px;
+    background-color: white;
+    padding: 15px;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+}
+
+.signupGithub {
+    display:flex;
+    justify-content: center;
+    margin-left: 58%;
+    margin-right: 17%;
+    border: lightgray 1px solid;
+    border-radius: 7px;
+    background-color: black;
+    padding: 15px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    margin-top:10px;
+}
+
+.signupFacebook {
+    display:flex;
+    justify-content: center;
+    margin-left: 58%;
+    margin-right: 17%;
+    border: lightgray 1px solid;
+    border-radius: 7px;
+    background-color: #102C76;
+    padding: 15px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    margin-top:10px;
+}
+
+.loginDiv {
     display: flex;
     justify-content: left;
-    margin-top: 8vh;
+    margin-top: 3vh;
     margin-left: 40%;
     margin-right: 35%;
     border: white 1px solid;
@@ -17,39 +107,91 @@ body {
     border-radius: 7px;
 }
 
-.authUsername{
-    padding: 15px;
+.loginEmail {
+    padding: 10px;
     font-size: 19px;
     border: lightgray 1px solid;
     border-radius: 3px;
 }
 
-.authEmail {
-    padding: 15px;
+.loginPassword {
+    padding: 10px;
     font-size: 19px;
     border: lightgray 1px solid;
     border-radius: 3px;
 }
 
-.authPassword {
-    padding: 15px;
+.loginSubmit {
+    display: flex;
+    justify-content: center;
+    border: rgb(150,150,150) 1px solid;
+    border-radius: 4px;
+    font-size: 20px;
+    padding:10px;
+    color: white;
+    background-color: rgb(45, 143, 255);
+    text-align: center;
+}
+
+.loginSubmitStretch {
+    margin-left:100px;
+    margin-right:105px;
+}
+
+.signupSubmitStretch{
+    margin-left:70px;
+    margin-right:74px;
+}
+
+.signupDiv {
+    display: flex;
+    justify-content: left;
+    margin-top: 3vh;
+    margin-left: 58%;
+    margin-right: 17%;
+    border: white 1px solid;
+    background-color: white;
+    box-shadow: 0px 0px 20px lightgrey;
+    border-radius: 7px;
+}
+
+.signupUsername{
+    padding: 10px;
     font-size: 19px;
     border: lightgray 1px solid;
     border-radius: 3px;
 }
 
-.authSubmit {
+.signupEmail {
+    padding: 10px;
+    font-size: 19px;
+    border: lightgray 1px solid;
+    border-radius: 3px;
+}
+
+.signupPassword {
+    padding: 10px;
+    font-size: 19px;
+    border: lightgray 1px solid;
+    border-radius: 3px;
+}
+
+.signupSubmit {
     background-color: white;
     border: rgb(150,150,150) 1px solid;
     border-radius: 4px;
     font-size: 20px;
-    padding:15px;
+    padding:10px;
     color: white;
     background-color: rgb(45, 143, 255);
-    box-shadow: 0px 0px 20px 2px rgb(100,100,100);
 }
 
-.authSubmit:hover {
+.loginSubmit:hover {
+    background-color: rgb(45, 103, 150);
+    cursor: pointer;
+}
+
+.signupSubmit:hover {
     background-color: rgb(45, 103, 150);
     cursor: pointer;
 }
@@ -67,11 +209,11 @@ body {
 }
 
 .authLoginSubmitDiv {
-    margin-left: 46%;
+    margin-left: 15%;
 }
 
 .authSignupSubmitDiv {
-    margin-left: 37%;
+    margin-left: 15%;
 }
 
 .contactDiv {
@@ -178,10 +320,12 @@ body {
 }
 
 .searchButton {
-    border: lightgray 1px solid;
+    /*border: lightgray 1px solid;
     border-radius: 3px;
     background-color: white;
     padding:10px;
+    */
+    display: none;
 }
 
 .searchButton:hover {
@@ -260,7 +404,7 @@ ul {
     margin: 0;
     padding: 0;
     background-color: white;
-    font-size:20px;
+    font-size:18px;
     box-shadow: 0px 5px 5px 0px lightgray;
 }
    
@@ -268,6 +412,7 @@ li {
     float:left;
     padding:20px;
     color: black;
+
 }
  
 li a {
@@ -276,9 +421,39 @@ li a {
 }
 
 li:hover {
-    background-color:rgb(219, 219, 219);
     cursor:pointer
    }
+
+.navbarSignup {
+    margin-top: 10px;
+    margin-right: 200px;
+    text-decoration: none;
+    color: white;
+    border: 1px solid #001AFF;
+    background-color: #0085FF;
+    border-radius: 3px;
+    padding: 10px;
+    
+}
+
+.navbarSignup:hover {
+    background-color: #0000ff
+}
+
+.navbarLogin {
+    margin-top: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #0047FF;
+    border: 1px solid #001AFF;
+    background-color: #C1E1FF;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.navbarLogin:hover {
+    background-color: #89d3e6
+}
 
 textarea {
     resize: none;

@@ -9,26 +9,31 @@
 {%endif%}
 {%endwith%}
 
-<div class="authDiv">
+<a href='/signup' class='signupGoogle'><img src="{{url_for('static', filename='images/google_logo.png')}}" width="20" height="20" style='margin-right:10px;'>რეგისტრაცია Google-ით</a>
+<a href='/signup' class='signupGithub'><img src="{{url_for('static', filename='images/github_logo.png')}}" width="20" height="20" style='margin-right:10px;'>რეგისტრაცია Github-ით</a>
+<a href='/signup' class='signupFacebook'><img src="{{url_for('static', filename='images/facebook_logo.png')}}" width="20" height="20" style='margin-right:10px;'>რეგისტრაცია Facebook-ით</a>
+
+
+<div class="signupDiv">
     <form action="" method="POST">
             <br>
         <div class="authUsernameDiv">
-            <p><b>შეიყვანე Username-ი</b></p>
-            <input name="username" class="authUsername"  type="text">
+            <p>Username-ი</p>
+            <input name="username" class="signupUsername"  type="text">
         </div>
             <br>
         <div class="authEmailDiv">
-            <p><b>შეიყვანე Email-ი</b></p>
-            <input name="email" class="authEmail"  type="text">
+            <p>Email-ი</p>
+            <input name="email" class="signupEmail"  type="text">
         </div>
             <br>
         <div class="authPasswordDiv">
-            <p><b>შეიყვანე პაროლი</b></p>
-            <input name="password" class="authPassword"  type="password">
+            <p>პაროლი</p>
+            <input name="password" class="signupPassword"  type="password">
         </div>
             <br><br>
         <div class="authSignupSubmitDiv">
-            <button type="submit" class="authSubmit">რეგისტრაცია</button>
+            <button type="submit" class="signupSubmit"><div class='signupSubmitStretch'>რეგისტრაცია</div></button>
         </div>
             <br>
             
@@ -36,7 +41,7 @@
     
 </div>
 
-<div style="display: flex; justify-content:center;margin-left:5%">
+<div style="display: flex; justify-content:center;margin-left:40%">
     <p>უკვე ხარ დარეგისტრირებული? <a href="/login" style="text-decoration:none;color:rgb(0,140,250)">შესვლა</a></p>
 </div>
 
