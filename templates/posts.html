@@ -1,16 +1,6 @@
 {%extends 'base.html'%}
 {%block content%}
 
-{%with flashed = get_flashed_messages()%}
-{%if flashed%}
-{%for flash in flashed%}
-{{flash}}
-<br><br>
-{%endfor%}
-{%endif%}
-{%endwith%}
-
-
 {%for post in posts%}
 <a href='/posts/{{post.post_id}}'>{{post.post}}</a>
 <br>

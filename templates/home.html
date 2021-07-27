@@ -1,14 +1,6 @@
 {%extends 'base.html'%}
 {%block content%}
 
-{%with flashed = get_flashed_messages()%}
-{%if flashed%}
-{%for flash in flashed%}
-<p class='flash'>{{flash}}</p>
-{%endfor%}
-{%endif%}
-{%endwith%}
-
 <br><br>
 
 {%if condition == 'True'%}
