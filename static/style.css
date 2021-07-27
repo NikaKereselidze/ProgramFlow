@@ -5,6 +5,10 @@ body {
     background-color: #eff0f1;
 }
 
+textarea {
+    resize: none;
+}
+
 .loginGoogle {
     display:flex;
     justify-content: center;
@@ -36,7 +40,7 @@ body {
 }
 
 .loginFacebook {
-    display:flex;
+    display: flex;
     justify-content: center;
     margin-left: 40%;
     margin-right: 35%;
@@ -96,8 +100,6 @@ body {
 }
 
 .loginDiv {
-    display: flex;
-    justify-content: left;
     margin-top: 3vh;
     margin-left: 40%;
     margin-right: 35%;
@@ -105,6 +107,7 @@ body {
     background-color: white;
     box-shadow: 0px 0px 20px lightgrey;
     border-radius: 7px;
+    text-align: center;
 }
 
 .loginEmail {
@@ -122,8 +125,6 @@ body {
 }
 
 .loginSubmit {
-    display: flex;
-    justify-content: center;
     border: rgb(150,150,150) 1px solid;
     border-radius: 4px;
     font-size: 20px;
@@ -144,8 +145,6 @@ body {
 }
 
 .signupDiv {
-    display: flex;
-    justify-content: left;
     margin-top: 3vh;
     margin-left: 58%;
     margin-right: 17%;
@@ -153,6 +152,7 @@ body {
     background-color: white;
     box-shadow: 0px 0px 20px lightgrey;
     border-radius: 7px;
+    text-align: center;
 }
 
 .signupUsername{
@@ -196,25 +196,6 @@ body {
     cursor: pointer;
 }
 
-.authUsernameDiv {
-    margin-left: 15%;
-}
-
-.authEmailDiv {
-    margin-left: 15%;
-}
-
-.authPasswordDiv {
-    margin-left: 15%;
-}
-
-.authLoginSubmitDiv {
-    margin-left: 15%;
-}
-
-.authSignupSubmitDiv {
-    margin-left: 15%;
-}
 
 .contactDiv {
     display: flex;
@@ -316,7 +297,7 @@ body {
     border-radius: 3px;
     padding: 10px;
     margin-top: 13px;
-    margin-left: 10%;
+    margin-left: 2%;
 }
 
 .searchButton {
@@ -334,8 +315,6 @@ body {
 }
 
 .addPostDiv {
-    display: flex;
-    justify-content: left;
     margin-top: 6vh;
     margin-left: 10%;
     margin-right: 10%;
@@ -343,6 +322,7 @@ body {
     background-color: white;
     box-shadow: 0px 0px 20px lightgrey;
     border-radius: 7px;
+    text-align: center;
 }
 
 .addPostTitle{
@@ -357,6 +337,7 @@ body {
     font-size: 19px;
     border: lightgray 1px solid;
     border-radius: 3px;
+    resize: vertical;
 }
 
 .addPostQuestion {
@@ -364,6 +345,7 @@ body {
     font-size: 19px;
     border: lightgray 1px solid;
     border-radius: 3px;
+    resize: vertical;
 }
 
 .addPostSubmit {
@@ -374,7 +356,6 @@ body {
     padding:15px;
     color: white;
     background-color: rgb(45, 143, 255);
-    box-shadow: 0px 0px 20px 2px rgb(100,100,100);
 }
 
 .addPostSubmit:hover {
@@ -383,19 +364,15 @@ body {
 }
 
 .addPostTitleDiv {
-    margin-left: 5%;
+    margin-right: 86%;
 }
 
 .addPostErrorDiv {
-    margin-left: 5%;
-}
-
-.addPostQuestionDiv {
-    margin-left: 5%;
+    margin-right: 87%;
 }
 
 .addPostSubmitDiv {
-    margin-left: 50%;
+    margin-left: 10%;
 }
 
 ul {
@@ -406,6 +383,7 @@ ul {
     background-color: white;
     font-size:18px;
     box-shadow: 0px 5px 5px 0px lightgray;
+    text-align: center;
 }
    
 li {
@@ -424,6 +402,7 @@ li:hover {
     cursor:pointer
    }
 
+
 .navbarSignup {
     margin-top: 10px;
     margin-right: 200px;
@@ -437,7 +416,7 @@ li:hover {
 }
 
 .navbarSignup:hover {
-    background-color: #0000ff
+    background-color: #0000a0
 }
 
 .navbarLogin {
@@ -453,8 +432,4 @@ li:hover {
 
 .navbarLogin:hover {
     background-color: #89d3e6
-}
-
-textarea {
-    resize: none;
 }

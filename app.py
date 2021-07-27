@@ -10,7 +10,7 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secretkey'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlite.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 
 db = SQLAlchemy(app)
@@ -53,7 +53,7 @@ def login():
                 session['user'] = user.username
                 return redirect(url_for('home'))
             elif not check_password_hash(user.password, password):
-                flash('Incorrect password.. Try again.')
+                flash('ეს პაროლი არასწორია. გთხოვთ სცადოთ ახლიდან..')
                 return redirect(url_for('login'))
         if not user:
             flash('ეს ემაილი არ არსებობს. გთხოვთ სცადოთ ახლიდან..')
@@ -124,8 +124,7 @@ def add_post():
         if request.method == 'POST':
             title = request.form['title']
             error = request.form['error']
-            question = request.form['question']
-            created_title = Posts(post=title, author=session['user'], error=error, question=question)
+            created_title = Posts(post=title, author=session['user'], error=error)
             db.session.add(created_title)
             db.session.commit()
             flash('წარმატებით შეიქმნა პოსტი..')
@@ -165,15 +164,6 @@ def update_code(id):
         return redirect(url_for("posts"))
     return render_template('update_post.html')
 
-@app.route('/posts/update3/<int:id>', methods=['POST', 'GET'])
-def update_question(id):
-    if request.method == 'POST':
-        post_update = Posts.query.get(id)
-        post_update.question = request.form['update']
-        db.session.commit()
-        return redirect(url_for("posts"))
-    return render_template('update_post.html')
-
 
 @app.route('/posts/delete/<int:id>')
 def delete(id):
@@ -207,8 +197,6 @@ class Posts(db.Model):
     author = db.Column(db.String(10000))
     post = db.Column(db.Text)
     error = db.Column(db.Text)
-    question = db.Column(db.Text)
-
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Posts, db.session))
