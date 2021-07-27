@@ -1,14 +1,6 @@
 {%extends 'base.html'%}
 {%block content%}
 
-{%with flashed = get_flashed_messages()%}
-{%if flashed%}
-{%for flash in flashed%}
-<p class='flash'>{{flash}}</p>
-{%endfor%}
-{%endif%}
-{%endwith%}
-
 <a href='/signup' class='signupGoogle'><img src="{{url_for('static', filename='images/google_logo.png')}}" width="20" height="20" style='margin-right:10px;'>რეგისტრაცია Google-ით</a>
 <a href='/signup' class='signupGithub'><img src="{{url_for('static', filename='images/github_logo.png')}}" width="20" height="20" style='margin-right:10px;'>რეგისტრაცია Github-ით</a>
 <a href='/signup' class='signupFacebook'><img src="{{url_for('static', filename='images/facebook_logo.png')}}" width="20" height="20" style='margin-right:10px;'>რეგისტრაცია Facebook-ით</a>

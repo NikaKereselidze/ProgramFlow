@@ -49,24 +49,24 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
-                flash('წარმატებით შეხვედით ექაუნთზე..')
+                flash('წარმატებით შეხვედით ექაუნთზე..', category='success')
                 session['user'] = user.username
                 return redirect(url_for('home'))
             elif not check_password_hash(user.password, password):
-                flash('ეს პაროლი არასწორია. გთხოვთ სცადოთ ახლიდან..')
+                flash('ეს პაროლი არასწორია. გთხოვთ სცადოთ ახლიდან..', category='error')
                 return redirect(url_for('login'))
         if not user:
-            flash('ეს ემაილი არ არსებობს. გთხოვთ სცადოთ ახლიდან..')
+            flash('ეს ემაილი არ არსებობს. გთხოვთ სცადოთ ახლიდან..', category='error')
             return redirect(url_for('login'))
     if 'user' in session:
-        flash('უკვე შესული ხართ..')
+        flash('უკვე შესული ხართ..', category='error')
         return redirect(url_for('home'))
     return render_template("login.html")
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if 'user' in session:
-        flash('უკვე შესული ხართ..')
+        flash('უკვე შესული ხართ..', category='error')
         return redirect(url_for('home'))
     if request.method == "POST":
         username = request.form['username']
@@ -75,7 +75,7 @@ def signup():
         created_user = User(username=username, password=generate_password_hash(password, method='sha256'), email=email)
         db.session.add(created_user)
         db.session.commit()
-        flash('წარმატებით შეიქმნა ექაუნთი..')
+        flash('წარმატებით შეიქმნა ექაუნთი..', category='success')
         return redirect(url_for('home'))
     
     return render_template("signup.html")
@@ -83,9 +83,9 @@ def signup():
 @app.route('/logout')
 def logout():
     if 'user' in session:
-        flash('წარმატებით გამოხვედით ექაუნთიდან..')
+        flash('წარმატებით გამოხვედით ექაუნთიდან..', category='success')
     elif not 'user' in session:
-        flash('არ ხართ შესული ექაუნთზე..')
+        flash('არ ხართ შესული ექაუნთზე..', category='error')
     session.pop('user', None)
     return redirect(url_for('login'))
 
@@ -127,7 +127,7 @@ def add_post():
             created_title = Posts(post=title, author=session['user'], error=error)
             db.session.add(created_title)
             db.session.commit()
-            flash('წარმატებით შეიქმნა პოსტი..')
+            flash('წარმატებით შეიქმნა პოსტი..', category='success')
             return redirect(url_for('posts'))
         else:
             return render_template('add_post.html')
@@ -141,7 +141,7 @@ def post_page(id):
         if post_data:
             return render_template('post_page.html', post_data=post_data)
         else:
-            flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..')
+            flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
             return redirect(url_for('posts'))
     else:
         return redirect(url_for('home'))
@@ -169,15 +169,15 @@ def update_code(id):
 def delete(id):
     post_delete = Posts.query.get(id)
     if post_delete.author != session['user']:
-        flash('ვერ მოხერხდა პოსტის წაშლა. თქვენ არ ხართ ამ პოსტის ავტორი..')
+        flash('ვერ მოხერხდა პოსტის წაშლა. თქვენ არ ხართ ამ პოსტის ავტორი..', category='error')
         return redirect(url_for('posts'))
     try:
         db.session.delete(post_delete)
         db.session.commit()
-        flash('წარმატებით წაიშალა პოსტი..')
+        flash('წარმატებით წაიშალა პოსტი..', category='success')
         return redirect(url_for('posts'))
     except:
-        flash("პოსტი ვერ წაიშალა..")
+        flash("პოსტი ვერ წაიშალა..", category='error')
         return redirect(url_for('posts'))
 
 
