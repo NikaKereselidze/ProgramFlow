@@ -2,29 +2,27 @@
 {%block content%}
 
 
+<div style='margin-left: 10%;font-size: 35px;'><p>პოსტის დამატება</p></div>
 <div class='addPostDiv'>
     <form method='POST', action=''>
         <br>
         <div class='addPostTitleDiv'>
-            <p><b>პოსტის სათაური</b></p>
-            <input name='title' class='addPostTitle' size="97" required>
+            <p>კითხვა</p>
         </div>
-        <br>
+            <input name='title' class='addPostTitle' minlength="4" maxlength="200" size="97" required placeholder="მაგალითად: არსებობს ისეთი ფუნქცია რომელიც გამოიტანს მასივში ელემენტების რაოდენობას.">
+        <br><br>
         <div class='addPostErrorDiv'>
-            <p><b>კოდი</b></p>
-            <textarea name="error" class='addPostError' cols="98" rows="10" required></textarea>
+            <p>კოდი</p>
         </div>
-        <br>
-        <div class='addPostQuestionDiv'>
-            <p><b>კითხვა</b></p>
-            <textarea name='question' class='addPostQuestion' cols="98" rows='4' required></textarea>
-        </div>
-        <br>
-        <div class='addPostSubmitDiv'>
-            <button type='submit' class='addPostSubmit'>დამატება</button>
-        </div>
-        <br>
-    </form>
-</div>
+        <textarea name="error" class='addPostError' minlength="4" maxlength="10000" cols="98" rows="14" placeholder='შეიყვანე კოდი სადაც გაქვთ პრობლემა რომ უფრო მარტივი მისახვედრი იყოს.' required></textarea>
+        <br><br><br>
+    </div>
+    <br>
+    <div class='addPostSubmitDiv'>
+        <button type='submit' class='addPostSubmit'>დამატება</button>
+    </div>
+</form>
+<br>
+
 
 {%endblock%}
