@@ -301,12 +301,10 @@ textarea {
 }
 
 .searchButton {
-    /*border: lightgray 1px solid;
+    border: lightgray 1px solid;
     border-radius: 3px;
     background-color: white;
     padding:10px;
-    */
-    display: none;
 }
 
 .searchButton:hover {
