@@ -12,13 +12,15 @@
 <body>
 
     <ul>
-        <a href='/'><li><img src="{{url_for('static', filename='images/logo.png')}}" alt='ProgramFlow'></li></a>
+      <a href='/'><li><img style='position:absolute;margin-top:-15px;margin-left:5%;' src="{{url_for('static', filename='images/logo.png')}}" width="120" height="50" alt='ProgramFlow'></li></a>
+        
         {%block login_sys%}
         <a href='/signup' style='float:right;' class='navbarSignup'>რეგისტრაცია</a>
         <a href='/login' style='float:right;' class='navbarLogin'>შესვლა</a>
         {%endblock%}
+  
         <form method='POST' action='/posts'>
-            <input type="text" name='search' class='searchInput' size='70' placeholder="Search..">
+            <input type="text" style="margin-bottom:10px;" name='search' class='searchInput' size='70' placeholder="Search..">
             <button class='searchButton'>Search..</button>
         </form>
     </ul>
