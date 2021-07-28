@@ -1,22 +1,24 @@
 {%extends 'base.html'%}
 {%block content%}
 
+
+<br>
 {%if post_data.post%}
     სათაური: {{post_data.post}}
     {%if post_data.author == current_user%}
-        <a href='/posts/update1/{{post_data.post_id}}'>განახლება</a>
+        <a class='update' href='/posts/update1/{{post_data.post_id}}'>განახლება</a>
     {%endif%}
 {%endif%}
-<br>
+<br><br>
 {%if post_data.error%}
     კოდი: {{post_data.error}} 
     {%if post_data.author == current_user%}
-        <a href='/posts/update2/{{post_data.post_id}}'>განახლება</a>
+        <a class='update' href='/posts/update2/{{post_data.post_id}}'>განახლება</a>
     {%endif%}
 {%endif%}
-<br>
+<br><br>
 {%if post_data.author == current_user%}
-    <a href='/posts/delete/{{post_data.post_id}}'>წაშლა</a>
+    <a class='delete' href='/posts/delete/{{post_data.post_id}}'>წაშლა</a>
 {%endif%}
 
 {%endblock%}
