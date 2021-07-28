@@ -50,8 +50,8 @@ def login():
         if user:
             if check_password_hash(user.password, password):
                 flash('წარმატებით შეხვედით ექაუნთზე..', category='success')
-                session['username'] = user.username
                 session['user'] = user.email
+                session['username'] = user.username
                 return redirect(url_for('home'))
             elif not check_password_hash(user.password, password):
                 flash('ეს პაროლი არასწორია. გთხოვთ სცადოთ ახლიდან..', category='error')
@@ -125,8 +125,8 @@ def add_post():
         if request.method == 'POST':
             title = request.form['title']
             error = request.form['error']
-            created_post = Posts(post=title, error=error, author=session['user'])
-            db.session.add(created_post)
+            created_title = Posts(post=title, author=session['user'], error=error)
+            db.session.add(created_title)
             db.session.commit()
             flash('წარმატებით შეიქმნა პოსტი..', category='success')
             return redirect(url_for('posts'))
@@ -149,6 +149,11 @@ def post_page(id):
 
 @app.route('/posts/update1/<int:id>', methods=['POST', 'GET'])
 def update_title(id):
+    if request.method == 'GET':
+        post_update = Posts.query.get(id)
+        if post_update.author != session['user']:
+            flash('ვერ მოხერხდა პოსტის განახლება. თქვენ არ ხართ ამ პოსტის ავტორი..', category='error')
+            return redirect(url_for('posts'))
     if request.method == 'POST':
         post_update = Posts.query.get(id)
         post_update.post = request.form['update']
@@ -158,6 +163,11 @@ def update_title(id):
 
 @app.route('/posts/update2/<int:id>', methods=['POST', 'GET'])
 def update_code(id):
+    if request.method == 'GET':
+        post_update = Posts.query.get(id)
+        if post_update.author != session['user']:
+            flash('ვერ მოხერხდა პოსტის განახლება. თქვენ არ ხართ ამ პოსტის ავტორი..', category='error')
+            return redirect(url_for('posts'))
     if request.method == 'POST':
         post_update = Posts.query.get(id)
         post_update.error = request.form['update']
