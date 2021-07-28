@@ -36,7 +36,7 @@ def send_mail():
 @app.route('/')
 def home():
     if 'user' in session:
-        return render_template('home.html', condition='True', username=session['user'])
+        return render_template('home.html', condition='True', username=session['username'])
     else:
         return render_template('home.html', condition='False')
 
@@ -50,7 +50,8 @@ def login():
         if user:
             if check_password_hash(user.password, password):
                 flash('წარმატებით შეხვედით ექაუნთზე..', category='success')
-                session['user'] = user.username
+                session['username'] = user.username
+                session['user'] = user.email
                 return redirect(url_for('home'))
             elif not check_password_hash(user.password, password):
                 flash('ეს პაროლი არასწორია. გთხოვთ სცადოთ ახლიდან..', category='error')
@@ -124,8 +125,8 @@ def add_post():
         if request.method == 'POST':
             title = request.form['title']
             error = request.form['error']
-            created_title = Posts(post=title, author=session['user'], error=error)
-            db.session.add(created_title)
+            created_post = Posts(post=title, error=error, author=session['user'])
+            db.session.add(created_post)
             db.session.commit()
             flash('წარმატებით შეიქმნა პოსტი..', category='success')
             return redirect(url_for('posts'))
@@ -139,7 +140,7 @@ def post_page(id):
     post_data = Posts.query.get(id)
     if 'user' in session:
         if post_data:
-            return render_template('post_page.html', post_data=post_data)
+            return render_template('post_page.html', post_data=post_data, current_user=session['user'])
         else:
             flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
             return redirect(url_for('posts'))
