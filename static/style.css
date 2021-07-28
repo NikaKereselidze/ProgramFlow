@@ -433,3 +433,17 @@ li:hover {
 .navbarLogin:hover {
     background-color: #89d3e6
 }
+
+.error {
+    margin-left: 20%;
+    margin-top: 19%;
+    font-size: 120px;
+    position:absolute;
+}
+
+.errorDiv {
+    text-align: center;
+    margin-left: 20%;
+    margin-top: 20%;
+    font-size: 18px;
+}
