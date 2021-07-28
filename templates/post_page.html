@@ -1,9 +1,22 @@
 {%extends 'base.html'%}
 {%block content%}
 
-სათაური: {{post_data.post}} <a href='/posts/update1/{{post_data.post_id}}'>Update</a><br>
-კოდი: {{post_data.error}} <a href='/posts/update2/{{post_data.post_id}}'>Update</a><br>
-
-<a href='/posts/delete/{{post_data.post_id}}'>Delete</a>
+{%if post_data.post%}
+    სათაური: {{post_data.post}}
+    {%if post_data.author == current_user%}
+        <a href='/posts/update1/{{post_data.post_id}}'>Update</a>
+    {%endif%}
+{%endif%}
+<br>
+{%if post_data.error%}
+    კოდი: {{post_data.error}} 
+    {%if post_data.author == current_user%}
+        <a href='/posts/update2/{{post_data.post_id}}'>Update</a>
+    {%endif%}
+{%endif%}
+<br>
+{%if post_data.author == current_user%}
+    <a href='/posts/delete/{{post_data.post_id}}'>Delete</a>
+{%endif%}
 
 {%endblock%}
