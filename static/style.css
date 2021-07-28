@@ -447,3 +447,13 @@ li:hover {
     margin-top: 20%;
     font-size: 18px;
 }
+
+.update {
+    text-decoration: none;
+    color: #0066FF;
+}
+
+.delete {
+    text-decoration:none;
+    color: #FF0000;
+}
