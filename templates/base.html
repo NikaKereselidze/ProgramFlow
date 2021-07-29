@@ -12,7 +12,7 @@
 <body>
 
     <ul>
-      <a href='/'><li><img style='position:absolute;margin-top:-15px;margin-left:5%;' src="{{url_for('static', filename='images/logo.png')}}" width="120" height="50" alt='ProgramFlow'></li></a>
+      <a href='/'><li><img style='margin-top:-15px;margin-bottom: -17px;margin-left:30%;' src="{{url_for('static', filename='images/logo.png')}}" width="120" height="50" alt='ProgramFlow'></li></a>
         
         {%block login_sys%}
         <a href='/signup' style='float:right;' class='navbarSignup'>რეგისტრაცია</a>
@@ -25,23 +25,23 @@
         </form>
     </ul>
 
-    {% with messages = get_flashed_messages(with_categories=True) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    {% if category == "error" %}
-      <div class="alert alert-danger alter-dismissible fade show" role="alert">
-        {{ message }}
-      </div>
-    {% else %}
-      <div class="alert alert-success alter-dismissible fade show" role="alert">
-        {{ message }}
-      </div>
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
+  {%with messages = get_flashed_messages(with_categories=True)%}
+    {%if messages%}
+      {%for category, message in messages%}
+        {%if category == "error" %}
+          <div class="alert alert-danger alter-dismissible fade show" role="alert">
+            {{message}}
+          </div>
+        {%else%}
+          <div class="alert alert-success alter-dismissible fade show" role="alert">
+            {{message}}
+          </div>
+        {%endif%}
+      {%endfor%}
+    {%endif%}
+  {%endwith%}
 
-    {%block content%}{%endblock%}
+  {%block content%}{%endblock%}
 
 </body>
 </html>
