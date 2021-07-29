@@ -196,6 +196,72 @@ textarea {
     cursor: pointer;
 }
 
+.votesDiv {
+    margin-left: 21%;
+}
+
+.buttonVote {
+    border: 0px solid;
+    background-color: none;
+}
+
+.upvote {
+	width: 0;
+	height: 0;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-bottom: 50px solid #999;
+    border-radius: 5px;
+}
+
+.upvote:hover {
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+    border-bottom: 50px solid rgb(45, 143, 255);
+    cursor: pointer;
+}
+
+.downvote {
+	width: 0;
+	height: 0;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-top: 50px solid #999;
+    border-radius: 5px;
+}
+
+.downvote:hover {
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+    border-top: 50px solid rgb(255, 45, 70);
+    cursor: pointer;
+}
+
+.votes {
+    font-size: 50px;
+    margin-left: 16px;
+}
+
+.title {
+    margin-left: 350px;
+    margin-right: 270px;
+    font-size:30px;
+    max-width: 30em;
+    word-wrap: break-word;
+}
+
+.codeDiv {
+    background-color: lightgray;
+    padding: 20px;
+    margin-right: 36%;
+    margin-left: 100px;
+    margin-top: -13%;
+}
+
+.code {
+    max-width: 46em;
+    word-wrap: break-word;
+}
 
 .contactDiv {
     display: flex;
@@ -287,11 +353,6 @@ textarea {
     color: rgb(0,140,250)
 }
 
-.flash {
-    margin-left: 40%;
-    font-size: 22px;
-}
-
 .searchInput {
     border: lightgray 1px solid;
     border-radius: 3px;
@@ -380,7 +441,7 @@ ul {
     padding: 0;
     background-color: white;
     font-size:18px;
-    box-shadow: 0px 5px 5px 0px lightgray;
+    box-shadow: 0px 3px 3px 0px lightgray;
     text-align: center;
 }
    
