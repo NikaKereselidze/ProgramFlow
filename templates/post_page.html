@@ -4,21 +4,56 @@
 
 <br>
 {%if post_data.post%}
-    სათაური: {{post_data.post}}
+    <br><br>
+    
+    <div class='title'>
+        {{post_data.post}}
+    </div>
+
+    <br><br>
+
     {%if post_data.author == current_user%}
-        <a class='update' href='/posts/update1/{{post_data.post_id}}'>განახლება</a>
+        <a style="margin-left: 72%;" class='update' href='/posts/update1/{{post_data.post_id}}'>განახლება</a>
     {%endif%}
+
+    <hr style="width:60%;border:lightgray solid 1px;">
+
+    <br>
+
+
 {%endif%}
+
 <br><br>
-{%if post_data.error%}
-    კოდი: {{post_data.error}} 
-    {%if post_data.author == current_user%}
-        <a class='update' href='/posts/update2/{{post_data.post_id}}'>განახლება</a>
+
+    {%if post_data.error%}
+    
+    <div class='votesDiv'>
+        <button class='buttonVote' onclick="vote()"><div class='upvote'></div></button>
+        <div class='votes'>{{votes}}</div>
+        <button class='buttonVote'><div class='downvote'></div></button>
+        <div class='codeDiv'>
+            <p class='code'>{{post_data.error}}</p>
+        </div>
+    </div>
+        {%if post_data.author == current_user%}
+            <a class='update' href='/posts/update2/{{post_data.post_id}}'>განახლება</a>
+        {%endif%}
     {%endif%}
-{%endif%}
+
 <br><br>
+
 {%if post_data.author == current_user%}
     <a class='delete' href='/posts/delete/{{post_data.post_id}}'>წაშლა</a>
 {%endif%}
+
+<script>
+    function vote() {
+        let vote = document.querySelector('.votes').innerHTML
+        vote = parseInt(vote)
+        vote = vote+1
+        console.log('Vote: '+vote)
+        document.querySelector('.votes').innerHTML = vote
+    }
+</script>
 
 {%endblock%}
