@@ -1,9 +1,23 @@
 {%extends 'base.html'%}
 {%block content%}
 
-<form action='' method='POST'>
-    <input type="text" name='update'>
-    <button type="submit">Update..</button>
-</form>
+
+<div class='updateDiv'>
+    <form action='' method='POST'>
+        <div>
+            <p>{{update_info}}</p>
+            {%if update_class == 'updateTitle'%}
+                <input class='updateInput' type="text" name='update'>
+            {%else%}
+                <textarea class='updateInput' type='text' name='update' minlength="4" maxlength="10000" cols="50" rows="14"></textarea>
+            {%endif%}
+        </div>
+        <br>
+        <div>
+            <button class='updateButton' type="submit">განახლება</button>
+        </div>
+        <br>
+    </form>
+</div>
 
 {%endblock%}

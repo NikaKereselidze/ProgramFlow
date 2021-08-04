@@ -2,7 +2,6 @@ from flask import Flask, render_template, url_for, redirect, request, session, f
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-from flask_login import UserMixin, login_required, current_user, LoginManager
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib
 import json
@@ -16,7 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 admin = Admin(app)
 
-def send_mail():
+def contact_mail():
     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
         email_address = 'emailpython17@gmail.com'
         passwd = 'vtvvutjvppuxjktk'
@@ -98,10 +97,16 @@ def contact():
 @app.route('/58ff672ea1ba72c2478600cba7c94579c6d96fc5', methods=['POST', 'GET'])
 def send_contact():
     if request.method == 'POST':
-        send_mail()
-        return render_template('contact_succeed.html')
+        try:
+            contact_mail()
+        except:
+            flash('ვერ მოხერხდა მფლობელთან დაკავშირება. გთხოვთ სცადოთ ახლიდან..')
+            return redirect(url_for('home'))
+        flash('წარმატებით დაუკავშირდით მფლობელს..')
+        return redirect(url_for('home'))
     else:
-        return render_template('contact_failed.html')
+        flash('ვერ მოხერხდა მფლობელთან დაკავშირება. გთხოვთ სცადოთ ახლიდან..')
+        return redirect(url_for('home'))
 
 
 @app.route('/posts', methods=['POST', 'GET'])
@@ -125,7 +130,7 @@ def add_post():
         if request.method == 'POST':
             title = request.form['title']
             error = request.form['error']
-            created_title = Posts(post=title, author=session['user'], error=error)
+            created_title = Posts(post=title, error=error, author=session['user'], author_name=session['username'], votes=0)
             db.session.add(created_title)
             db.session.commit()
             flash('წარმატებით შეიქმნა პოსტი..', category='success')
@@ -135,31 +140,101 @@ def add_post():
     else:
         return redirect(url_for('home'))
 
-@app.route('/posts/<int:id>')
+@app.route('/posts/<int:id>', methods=['POST', 'GET'])
 def post_page(id):
     post_data = Posts.query.get(id)
-    if 'user' in session:
-        if post_data:
-            return render_template('post_page.html', post_data=post_data, current_user=session['user'])
-        else:
-            flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
-            return redirect(url_for('posts'))
+    if request.method == 'POST':
+        upvoter = request.form.get('upvoter')
+        downvoter = request.form.get('downvoter')
+        if upvoter == 'up':
+            vote_author = session['user']
+            votes = post_data.votes
+            if vote_author not in str(post_data.vote_authors):
+                post_data.vote_authors = f'{post_data.vote_authors},{vote_author}'
+                if session['downvoted'] == True:
+                    votes+=2
+                    session['upvoted'] = True
+                else:
+                    votes+=1
+                    session['upvoted'] = True
+            elif vote_author in str(post_data.vote_authors):
+                post_data.vote_authors = post_data.vote_authors.replace(vote_author, '')
+                votes-=1
+                session['upvoted'] = False
+                session['downvoted'] = False
+            post_data.votes = votes
+            db.session.commit()
+            if 'user' in session:
+                if post_data:
+                    return render_template('post_page.html', post_data=post_data, current_user=session['user'], upvoted=session['upvoted'])
+                else:
+                    flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
+                    return redirect(url_for('posts'))
+            else:
+                return redirect(url_for('home'))
+        elif downvoter == 'dwn':
+            vote_author = session['user']
+            votes = post_data.votes
+
+            if vote_author not in str(post_data.vote_authors):
+                post_data.vote_authors = f'{post_data.vote_authors},{vote_author}'
+                if session['upvoted'] == False:
+                    votes-=1
+                    session['downvoted'] = True
+                elif session['upvoted'] == True:
+                    votes-=2
+                    session['upvoted'] = False
+                    session['downvoted'] = True
+
+            elif vote_author in str(post_data.vote_authors):
+                post_data.vote_authors = post_data.vote_authors.replace(f'{vote_author},', '')
+                if session['upvoted'] == False:
+                    votes+=1
+                session['downvoted'] = False
+                session['upvoted'] = False
+
+            post_data.votes = votes
+            db.session.commit()
+            if 'user' in session:
+                if post_data:
+                    return render_template('post_page.html', post_data=post_data, current_user=session['user'], downvoted=session['downvoted'])
+                else:
+                    flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
+                    return redirect(url_for('posts'))
+            else:
+                return redirect(url_for('home'))
     else:
-        return redirect(url_for('home'))
+        if 'user' in session:
+            if post_data:
+                return render_template('post_page.html', post_data=post_data, current_user=session['user'])
+            else:
+                flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
+                return redirect(url_for('posts'))
+        else:
+            return redirect(url_for('home'))
+
+
+@app.route('/posts/post_settings/<int:id>', methods=['POST', 'GET'])
+def post_settings(id):
+    post_settings = Posts.query.get(id)
+    if post_settings.author != session['user']:
+        flash('ვერ მოხერხდა პარამეტრების ნახვა. თქვენ არ ხართ ამ პოსტის ავტორი..', category='error')
+        return redirect(url_for('posts'))
+    else:
+        return render_template('post_settings.html', post_data=post_settings)
+
 
 @app.route('/posts/update1/<int:id>', methods=['POST', 'GET'])
 def update_title(id):
-    if request.method == 'GET':
-        post_update = Posts.query.get(id)
-        if post_update.author != session['user']:
-            flash('ვერ მოხერხდა პოსტის განახლება. თქვენ არ ხართ ამ პოსტის ავტორი..', category='error')
-            return redirect(url_for('posts'))
+    post_update = Posts.query.get(id)
+    if post_update.author != session['user']:
+        flash('ვერ მოხერხდა პოსტის განახლება. თქვენ არ ხართ ამ პოსტის ავტორი..', category='error')
+        return redirect(url_for('posts'))
     if request.method == 'POST':
-        post_update = Posts.query.get(id)
         post_update.post = request.form['update']
         db.session.commit()
         return redirect(url_for("posts"))
-    return render_template('update_post.html')
+    return render_template('update_post.html', update_info='სათაურის განახლება', update_class='updateTitle')
 
 @app.route('/posts/update2/<int:id>', methods=['POST', 'GET'])
 def update_code(id):
@@ -173,7 +248,7 @@ def update_code(id):
         post_update.error = request.form['update']
         db.session.commit()
         return redirect(url_for("posts"))
-    return render_template('update_post.html')
+    return render_template('update_post.html', update_info='კოდის განახლება', update_class='updateCode')
 
 
 @app.route('/posts/delete/<int:id>')
@@ -206,8 +281,11 @@ class User(db.Model):
 class Posts(db.Model):
     post_id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.String(10000))
+    author_name = db.Column(db.String(10000))
     post = db.Column(db.Text)
     error = db.Column(db.Text)
+    votes = db.Column(db.Integer)
+    vote_authors = db.Column(db.String(100000))
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Posts, db.session))
@@ -215,4 +293,4 @@ admin.add_view(ModelView(Posts, db.session))
 port = os.getenv('PORT', 5000)
 
 if __name__ == '__main__':
-    app.run(port=int(port))
+    app.run(port=int(port), debug=True)

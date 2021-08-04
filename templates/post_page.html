@@ -1,7 +1,5 @@
 {%extends 'base.html'%}
 {%block content%}
-
-
 <br>
 {%if post_data.post%}
     <br><br>
@@ -10,50 +8,37 @@
         {{post_data.post}}
     </div>
 
-    <br><br>
-
-    {%if post_data.author == current_user%}
-        <a style="margin-left: 72%;" class='update' href='/posts/update1/{{post_data.post_id}}'>განახლება</a>
-    {%endif%}
-
-    <hr style="width:60%;border:lightgray solid 1px;">
-
     <br>
 
-
+    <hr style="width:60%;border:lightgray solid 1px;">
 {%endif%}
+<br>
+    {%if post_data.author == current_user%}
+        <img style='margin-left:71%' src="{{url_for('static', filename='images/settings_icon.png')}}" height='15' width='15'><a class='settings' href='/posts/post_settings/{{post_data.post_id}}'>პარამეტრები</a>
+    {%endif%}
 
-<br><br>
-
-    {%if post_data.error%}
+{%if post_data.error%}
     
     <div class='votesDiv'>
-        <button class='buttonVote' onclick="vote()"><div class='upvote'></div></button>
-        <div class='votes'>{{votes}}</div>
-        <button class='buttonVote'><div class='downvote'></div></button>
+
+            <form action='' method='POST'>
+                <input name='upvoter' value='up' style='display:none;'>
+                <button type='submit' class='buttonVote'>{%if upvoted%}<div class='upvoteActive'></div>{%elif not upvoted%}<div class='upvote'></div>{%endif%}</button>
+            </form>
+            <div class='votes'>{{post_data.votes}}</div>
+            <form action='' method='POST'>
+                <input name='downvoter' value='dwn' style='display:none;'>
+                <button type='submit' class='buttonVote'>{%if downvoted%}<div class='downvoteActive'></div>{%else%}<div class='downvote'></div>{%endif%}</button>
+            </form>
+
         <div class='codeDiv'>
             <p class='code'>{{post_data.error}}</p>
         </div>
     </div>
-        {%if post_data.author == current_user%}
-            <a class='update' href='/posts/update2/{{post_data.post_id}}'>განახლება</a>
-        {%endif%}
-    {%endif%}
 
-<br><br>
+    <br><br>
 
-{%if post_data.author == current_user%}
-    <a class='delete' href='/posts/delete/{{post_data.post_id}}'>წაშლა</a>
+    <div class='authorDiv'><p class='author'>Posted By {{post_data.author_name}}</p></div>
 {%endif%}
-
-<script>
-    function vote() {
-        let vote = document.querySelector('.votes').innerHTML
-        vote = parseInt(vote)
-        vote = vote+1
-        console.log('Vote: '+vote)
-        document.querySelector('.votes').innerHTML = vote
-    }
-</script>
 
 {%endblock%}
