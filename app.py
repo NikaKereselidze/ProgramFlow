@@ -144,65 +144,73 @@ def add_post():
 def post_page(id):
     post_data = Posts.query.get(id)
     if request.method == 'POST':
-        upvoter = request.form.get('upvoter')
-        downvoter = request.form.get('downvoter')
-        if upvoter == 'up':
-            vote_author = session['user']
-            votes = post_data.votes
-            if vote_author not in str(post_data.vote_authors):
-                post_data.vote_authors = f'{post_data.vote_authors},{vote_author}'
-                if session['downvoted'] == True:
-                    votes+=2
-                    session['upvoted'] = True
-                else:
-                    votes+=1
-                    session['upvoted'] = True
-            elif vote_author in str(post_data.vote_authors):
-                post_data.vote_authors = post_data.vote_authors.replace(vote_author, '')
-                votes-=1
-                session['upvoted'] = False
-                session['downvoted'] = False
-            post_data.votes = votes
-            db.session.commit()
-            if 'user' in session:
-                if post_data:
-                    return render_template('post_page.html', post_data=post_data, current_user=session['user'], upvoted=session['upvoted'])
-                else:
-                    flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
-                    return redirect(url_for('posts'))
-            else:
-                return redirect(url_for('home'))
-        elif downvoter == 'dwn':
-            vote_author = session['user']
-            votes = post_data.votes
+        if 'user' in session:
+            upvoter = request.form.get('upvoter')
+            downvoter = request.form.get('downvoter')
+            session['upvoted'] = True
+            session['downvoted'] = False
 
-            if vote_author not in str(post_data.vote_authors):
-                post_data.vote_authors = f'{post_data.vote_authors},{vote_author}'
-                if session['upvoted'] == False:
+            if upvoter == 'up':
+                vote_author = session['user']
+                votes = post_data.votes
+                if vote_author not in str(post_data.vote_authors):
+                    post_data.vote_authors = f'{post_data.vote_authors},{vote_author}'
+                    if session['downvoted'] == True:
+                        votes+=2
+                        session['upvoted'] = True
+                    else:
+                        votes+=1
+                        session['upvoted'] = True
+                elif vote_author in str(post_data.vote_authors):
+                    post_data.vote_authors = post_data.vote_authors.replace(vote_author, '')
                     votes-=1
-                    session['downvoted'] = True
-                elif session['upvoted'] == True:
-                    votes-=2
                     session['upvoted'] = False
-                    session['downvoted'] = True
-
-            elif vote_author in str(post_data.vote_authors):
-                post_data.vote_authors = post_data.vote_authors.replace(f'{vote_author},', '')
-                if session['upvoted'] == False:
-                    votes+=1
-                session['downvoted'] = False
-                session['upvoted'] = False
-
-            post_data.votes = votes
-            db.session.commit()
-            if 'user' in session:
-                if post_data:
-                    return render_template('post_page.html', post_data=post_data, current_user=session['user'], downvoted=session['downvoted'])
+                    session['downvoted'] = False
+                post_data.votes = votes
+                db.session.commit()
+                if 'user' in session:
+                    if post_data:
+                        return render_template('post_page.html', post_data=post_data, current_user=session['user'], upvoted=session['upvoted'])
+                    else:
+                        flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
+                        return redirect(url_for('posts'))
                 else:
-                    flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
-                    return redirect(url_for('posts'))
-            else:
-                return redirect(url_for('home'))
+                    return redirect(url_for('home'))
+            elif downvoter == 'dwn':
+                vote_author = session['user']
+                votes = post_data.votes
+
+                if vote_author not in str(post_data.vote_authors):
+                    post_data.vote_authors = f'{post_data.vote_authors}-{vote_author}'
+                    if session['upvoted'] == False:
+                        votes-=1
+                        session['downvoted'] = True
+                    elif session['upvoted'] == True:
+                        votes-=2
+                        session['upvoted'] = False
+                        session['downvoted'] = True
+
+                elif vote_author in str(post_data.vote_authors):
+                    post_data.vote_authors = post_data.vote_authors.replace(f'{vote_author}-', '')
+                    if session['upvoted'] == False:
+                        votes+=1
+                    session['downvoted'] = False
+                    session['upvoted'] = False
+
+                post_data.votes = votes
+                db.session.commit()
+                if 'user' in session:
+                    if post_data:
+                        return render_template('post_page.html', post_data=post_data, current_user=session['user'], downvoted=session['downvoted'])
+                    else:
+                        flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
+                        return redirect(url_for('posts'))
+                else:
+                    return redirect(url_for('home'))
+        else:
+            flash('არ ხართ შესული ექაუნთზე..')
+            return redirect(url_for('home'))
+
     else:
         if 'user' in session:
             if post_data:
@@ -280,10 +288,10 @@ class User(db.Model):
 
 class Posts(db.Model):
     post_id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.String(10000))
-    author_name = db.Column(db.String(10000))
-    post = db.Column(db.Text)
-    error = db.Column(db.Text)
+    author = db.Column(db.String(10000), nullable=False)
+    author_name = db.Column(db.String(10000), nullable=False)
+    post = db.Column(db.Text, nullable=False)
+    error = db.Column(db.Text, nullable=False)
     votes = db.Column(db.Integer)
     vote_authors = db.Column(db.String(100000))
 

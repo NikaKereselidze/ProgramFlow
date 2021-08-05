@@ -2,8 +2,8 @@
 {%block content%}
 
 {%for post in posts%}
-<a href='/posts/{{post.post_id}}'>{{post.post}}</a>
-<br>
+    <a href='/posts/{{post.post_id}}'>{{post.post}}</a>
+    <br>
 {%endfor%}
 
 <h1><a href='/posts/add' style='color: black; text-decoration: none;'>+</a></h1>

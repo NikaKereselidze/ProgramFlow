@@ -10,12 +10,15 @@
 
     <br>
 
-    <hr style="width:60%;border:lightgray solid 1px;">
+    <hr style="width:61%;border:lightgray solid 1px;">
 {%endif%}
+
 <br>
     {%if post_data.author == current_user%}
         <img style='margin-left:71%' src="{{url_for('static', filename='images/settings_icon.png')}}" height='15' width='15'><a class='settings' href='/posts/post_settings/{{post_data.post_id}}'>პარამეტრები</a>
+        <br><br>
     {%endif%}
+
 
 {%if post_data.error%}
     
@@ -32,7 +35,7 @@
             </form>
 
         <div class='codeDiv'>
-            <p class='code'>{{post_data.error}}</p>
+            <pre class='code'>{{post_data.error}}</pre>
         </div>
     </div>
 

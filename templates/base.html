@@ -15,8 +15,8 @@
       <a href='/'><li><img style='margin-top:-15px;margin-bottom: -17px;margin-left:30%;' src="{{url_for('static', filename='images/logo.png')}}" width="120" height="50" alt='ProgramFlow'></li></a>
         
         {%block login_sys%}
-        <a href='/signup' style='float:right;' class='navbarSignup'>რეგისტრაცია</a>
-        <a href='/login' style='float:right;' class='navbarLogin'>შესვლა</a>
+        <a href='/signup' class='navbarSignup'>რეგისტრაცია</a>
+        <a href='/login' class='navbarLogin'>შესვლა</a>
         {%endblock%}
   
         <form method='POST' action='/posts'>
@@ -29,11 +29,11 @@
     {%if messages%}
       {%for category, message in messages%}
         {%if category == "error" %}
-          <div class="alert alert-danger alter-dismissible fade show" role="alert">
+          <div class="alert alert-danger" role="alert">
             {{message}}
           </div>
         {%else%}
-          <div class="alert alert-success alter-dismissible fade show" role="alert">
+          <div class="alert alert-success" role="alert">
             {{message}}
           </div>
         {%endif%}
@@ -43,5 +43,36 @@
 
   {%block content%}{%endblock%}
 
+
+
+  <footer>
+    <div class='footerDiv'>
+      <div class='footerLogoDiv'>
+        <a style="text-decoration:none;color:white;" href="/">
+          <img src="{{url_for('static', filename='/images/logowithouttxt.png')}}" alt='ProgramFlowLogo' height="80" width='80'>
+        </a>
+      </div>
+      <div class='footerChildDiv1'>
+        <a class='footerLink' href='/'>PROGRAMFLOW</a>
+        <br><br>
+        <a class='footerChildLink' href='/posts'>პოსტები</a>
+      </div>
+      <div class='footerChildDiv2'>
+        <a class='footerLink' href='/'>ჩვენს შესახებ</a>
+      </div>
+      <div class='footerChildDiv3'>
+        <a class='footerLink' href='/'>Discord სერვერი</a>
+        <br><br>
+        <a style='text-decoration:none' href='https://discord.gg/6cP4FfVndE' target="_blank">
+          <div class='discordWidgetDiv'>
+              <img class='discordWidgetLogo' src="{{url_for('static', filename='/images/discord_logo.png')}}" width="79" height="60">
+              <p class='discordWidgetText'><b>ProgramFlow</b></p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  
 </body>
 </html>
