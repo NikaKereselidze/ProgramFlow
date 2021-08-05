@@ -5,21 +5,19 @@
 <div class='addPostDiv'>
     <form method='POST' action=''>
         <br>
-        <div class='addPostTitleDiv'>
-            <p>კითხვა</p>
-        </div>
-            <input name='title' class='addPostTitle' minlength="4" maxlength="200" size="97" required placeholder="მაგალითად: არსებობს ისეთი ფუნქცია რომელიც გამოიტანს მასივში ელემენტების რაოდენობას.">
+        <p>კითხვა</p>
+        <input name='title' class='addPostTitle' minlength="4" maxlength="1500" size="97" required placeholder="მაგალითად: არსებობს ისეთი ფუნქცია რომელიც გამოიტანს მასივში ელემენტების რაოდენობას.">
         <br><br>
-        <div class='addPostErrorDiv'>
-            <p>კოდი</p>
-        </div>
-        <textarea name="error" class='addPostError' minlength="4" maxlength="600000" cols="98" rows="14" placeholder='შეიყვანე კოდი სადაც გაქვთ პრობლემა რომ უფრო მარტივი მისახვედრი იყოს.' required></textarea>
-        <br><br><br>
+        <p>კოდი</p>
+        <textarea name="code" class='addPostCode' minlength="4" maxlength="600000" cols="98" rows="14" placeholder='შეიყვანე კოდი სადაც გაქვთ პრობლემა რომ უფრო მარტივი მისახვედრი იყოს.' required></textarea>
+        <br>
+        <p style="text-align:left;margin-left:4%;color:gray;">გაითვალისწინეთ რომ უმნიშვნელო პოსტის დამატების შემთხვევაში პოსტი წაიშლება!</p>
     </div>
     <br>
     <div class='addPostSubmitDiv'>
         <button type='submit' class='addPostSubmit'>დამატება</button>
     </div>
+
 </form>
 <br>
 

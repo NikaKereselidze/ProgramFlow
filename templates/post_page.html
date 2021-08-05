@@ -20,7 +20,7 @@
     {%endif%}
 
 
-{%if post_data.error%}
+{%if post_data.code%}
     
     <div class='votesDiv'>
 
@@ -35,7 +35,7 @@
             </form>
 
         <div class='codeDiv'>
-            <pre class='code'>{{post_data.error}}</pre>
+            <pre class='code'>{{post_data.code}}</pre>
         </div>
     </div>
 

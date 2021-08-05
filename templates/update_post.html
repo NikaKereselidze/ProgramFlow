@@ -7,9 +7,9 @@
         <div>
             <p>{{update_info}}</p>
             {%if update_class == 'updateTitle'%}
-                <input class='updateInput' type="text" name='update'>
+                <input class='updateInput' type="text" name='update' minlength="4" maxlength="1500" size="24" required>
             {%else%}
-                <textarea class='updateInput' type='text' name='update' minlength="4" maxlength="10000" cols="50" rows="14"></textarea>
+                <textarea style="resize:vertical;" class='updateInput' type='text' name='update' minlength="4" maxlength="600000" cols="30" rows="14" required></textarea>
             {%endif%}
         </div>
         <br>

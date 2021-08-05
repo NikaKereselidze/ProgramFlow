@@ -14,11 +14,13 @@
     <ul>
       <a href='/'><li><img style='margin-top:-15px;margin-bottom: -17px;margin-left:30%;' src="{{url_for('static', filename='images/logo.png')}}" width="120" height="50" alt='ProgramFlow'></li></a>
         
-        {%block login_sys%}
+      {%if 'user' in session%}
+        <a href='/user' class='usernameNavLogged'>{{username}}</a>
+      {%elif 'user' not in session%}
         <a href='/signup' class='navbarSignup'>რეგისტრაცია</a>
         <a href='/login' class='navbarLogin'>შესვლა</a>
-        {%endblock%}
-  
+      {%endif%}
+        
         <form method='POST' action='/posts'>
             <input type="text" style="margin-bottom:10px;" name='search' class='searchInput' size='70' placeholder="Search..">
             <button class='searchButton'>Search..</button>
@@ -49,7 +51,7 @@
     <div class='footerDiv'>
       <div class='footerLogoDiv'>
         <a style="text-decoration:none;color:white;" href="/">
-          <img src="{{url_for('static', filename='/images/logowithouttxt.png')}}" alt='ProgramFlowLogo' height="80" width='80'>
+          <img src="{{url_for('static', filename='/images/logowithouttxt.png')}}" alt='ProgramFlowLogo' height="50" width='50'>
         </a>
       </div>
       <div class='footerChildDiv1'>
@@ -59,6 +61,8 @@
       </div>
       <div class='footerChildDiv2'>
         <a class='footerLink' href='/'>ჩვენს შესახებ</a>
+        <br><br>
+        <a class='footerChildLink' href='/contact'>დაგვიკავშირდი</a>
       </div>
       <div class='footerChildDiv3'>
         <a class='footerLink' href='/'>Discord სერვერი</a>

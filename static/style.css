@@ -399,7 +399,7 @@ textarea {
     border-radius: 3px;
 }
 
-.addPostError {
+.addPostCode {
     padding: 15px;
     font-size: 19px;
     border: lightgray 1px solid;
@@ -453,6 +453,13 @@ li:hover {
     cursor:pointer
    }
 
+.usernameNavLogged{
+    margin-top: 22px;
+    margin-right: 100px;
+    text-decoration: none;
+    float: right;
+    color: #242729;
+}
 
 .navbarSignup {
     margin-top: 10px;
@@ -534,6 +541,20 @@ li:hover {
     color: #FF0000;
 }
 
+.error404 {
+    margin-left: 20%;
+    margin-top: 19%;
+    font-size: 120px;
+    position: absolute;
+}
+
+.error404Div {
+    text-align: center;
+    margin-left: 20%;
+    margin-top: 20%;
+    font-size: 18px;
+}
+
 .footerDiv {
     display: flex;
     justify-content: center;
@@ -556,6 +577,7 @@ li:hover {
 .footerLogoDiv {
     margin-right: 5%;
     margin-left: 5px;
+    margin-top: -40px;
 }
 
 .footerChildDiv1 {
