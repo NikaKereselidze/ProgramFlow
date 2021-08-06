@@ -34,10 +34,12 @@ def contact_mail():
 
 @app.route('/')
 def home():
-    if 'user' in session:
+    if 'user' and 'darkmode' in session:
         return render_template('home.html', condition='True', session=session, darkmode=session['darkmode'])
+    if 'user' in session:
+        return render_template('home.html', condition='True', session=session)
     else:
-        return render_template('home.html', condition='False', session=session, darkmode=session['darkmode'])
+        return render_template('home.html', condition='False', session=session)
 
 @app.route('/darkmode')
 def dark_mode():
