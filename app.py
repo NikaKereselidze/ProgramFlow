@@ -35,10 +35,21 @@ def contact_mail():
 @app.route('/')
 def home():
     if 'user' in session:
-        return render_template('home.html', condition='True', session=session, username=session['username'])
+        return render_template('home.html', condition='True', session=session, darkmode=session['darkmode'])
     else:
-        return render_template('home.html', condition='False', session=session, username=session['username'])
+        return render_template('home.html', condition='False', session=session, darkmode=session['darkmode'])
 
+@app.route('/darkmode')
+def dark_mode():
+    session['darkmode']=True
+    flash('Dark mode initiated..', category='success')
+    return redirect(url_for('home'))
+
+@app.route('/defaultmode')
+def default_mode():
+    session['darkmode']=False
+    flash('Default mode initiated..', category='success')
+    return redirect(url_for('home'))
 
 @app.route('/login', methods=['GET', 'POST']) 
 def login():
@@ -76,7 +87,7 @@ def signup():
         db.session.add(created_user)
         db.session.commit()
         flash('წარმატებით შეიქმნა ექაუნთი..', category='success')
-        return redirect(url_for('home'))
+        return redirect(url_for('login'))
     
     return render_template("signup.html")
 
@@ -120,8 +131,9 @@ def posts():
     else:
         posts = Posts.query.all()
     if 'user' in session:
-        return render_template('posts.html', posts=posts, session=session, username=session['username'])
+        return render_template('posts.html', posts=posts, session=session)
     else:
+        flash('არ ხარ შესული ექაუნთზე..', category='error')
         return redirect(url_for('home'))
 
 @app.route('/posts/add', methods=['POST', 'GET'])
@@ -136,13 +148,14 @@ def add_post():
             flash('წარმატებით შეიქმნა პოსტი..', category='success')
             return redirect(url_for('posts'))
         else:
-            return render_template('add_post.html', session=session, username=session['username'])
+            return render_template('add_post.html', session=session)
     else:
         return redirect(url_for('home'))
 
 @app.route('/posts/<int:id>', methods=['POST', 'GET'])
 def post_page(id):
     post_data = Posts.query.get(id)
+    answer_data = Answers.query.get(id)
     if request.method == 'POST':
         if 'user' in session:
             upvoter = request.form.get('upvoter')
@@ -170,7 +183,7 @@ def post_page(id):
                 db.session.commit()
                 if 'user' in session:
                     if post_data:
-                        return render_template('post_page.html', post_data=post_data, current_user=session['user'], upvoted=session['upvoted'], session=session, username=session['username'])
+                        return render_template('post_page.html', post_data=post_data, current_user=session['user'], upvoted=session['upvoted'], session=session)
                     else:
                         flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
                         return redirect(url_for('posts'))
@@ -200,13 +213,22 @@ def post_page(id):
                 post_data.votes = votes
                 db.session.commit()
                 if 'user' in session:
-                    if post_data:
-                        return render_template('post_page.html', post_data=post_data, current_user=session['user'], downvoted=session['downvoted'], session=session, username=session['username'])
+                    if post_data and answer_data:
+                        return render_template('post_page.html', post_data=post_data, answer_data=answer_data, current_user=session['user'], downvoted=session['downvoted'], session=session)
+                    elif post_data:
+                        return render_template('post_page.html', post_data=post_data, current_user=session['user'], downvoted=session['downvoted'], session=session)
                     else:
                         flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
                         return redirect(url_for('posts'))
                 else:
                     return redirect(url_for('home'))
+            if request.form.get('answer'):
+                answer = request.form.get('answer')
+                created_answer = Answers(answer_id=post_data.post_id, answer_author=session['user'], answer_username=session['username'], answer=answer, votes=0)
+                db.session.add(created_answer)
+                db.session.commit()
+                return render_template('post_page.html', post_data=post_data, answer_data=answer_data, current_user=session['user'], downvoted=session['downvoted'], session=session)
+
         else:
             flash('არ ხართ შესული ექაუნთზე..')
             return redirect(url_for('home'))
@@ -214,7 +236,7 @@ def post_page(id):
     else:
         if 'user' in session:
             if post_data:
-                return render_template('post_page.html', post_data=post_data, current_user=session['user'], session=session, username=session['username'])
+                return render_template('post_page.html', post_data=post_data, answer_data=answer_data, current_user=session['user'], session=session)
             else:
                 flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
                 return redirect(url_for('posts'))
@@ -229,7 +251,7 @@ def post_settings(id):
         flash('ვერ მოხერხდა პარამეტრების ნახვა. თქვენ არ ხართ ამ პოსტის ავტორი..', category='error')
         return redirect(url_for('posts'))
     else:
-        return render_template('post_settings.html', post_data=post_settings, session=session, username=session['username'])
+        return render_template('post_settings.html', post_data=post_settings, session=session)
 
 
 @app.route('/posts/update1/<int:id>', methods=['POST', 'GET'])
@@ -242,7 +264,7 @@ def update_title(id):
         post_update.post = request.form['update']
         db.session.commit()
         return redirect(url_for("posts"))
-    return render_template('update_post.html', update_info='სათაურის განახლება', update_class='updateTitle', session=session, username=session['username'])
+    return render_template('update_post.html', update_info='სათაურის განახლება', update_class='updateTitle', session=session)
 
 @app.route('/posts/update2/<int:id>', methods=['POST', 'GET'])
 def update_code(id):
@@ -256,7 +278,7 @@ def update_code(id):
         post_update.code = request.form['update']
         db.session.commit()
         return redirect(url_for("posts"))
-    return render_template('update_post.html', update_info='კოდის განახლება', update_class='updateCode', session=session, username=session['username'])
+    return render_template('update_post.html', update_info='კოდის განახლება', update_class='updateCode', session=session)
 
 
 @app.route('/posts/delete/<int:id>')
@@ -277,7 +299,7 @@ def delete(id):
 
 @app.errorhandler(404)
 def error(e):
-    return render_template('404.html', session=session, username=session['username']), 404
+    return render_template('404.html', session=session), 404
 
 
 class User(db.Model):
@@ -292,11 +314,21 @@ class Posts(db.Model):
     author_name = db.Column(db.String(10000), nullable=False)
     post = db.Column(db.Text, nullable=False)
     code = db.Column(db.Text, nullable=False)
-    votes = db.Column(db.Integer)
-    vote_authors = db.Column(db.String(100000))
+    votes = db.Column(db.Integer, nullable=False)
+    vote_authors = db.Column(db.Text)
+
+class Answers(db.Model):
+    post_id = db.Column(db.Integer, primary_key=True)
+    answer_id = db.Column(db.Integer, nullable=False)
+    answer_author = db.Column(db.Text, nullable=False)
+    answer_username = db.Column(db.Text, nullable=False)
+    answer = db.Column(db.Text, nullable=False)
+    votes = db.Column(db.Integer, nullable=False)
+    vote_authors = db.Column(db.Text)
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Posts, db.session))
+admin.add_view(ModelView(Answers, db.session))
 
 port = os.getenv('PORT', 5000)
 

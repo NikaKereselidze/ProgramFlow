@@ -16,7 +16,7 @@
 <br>
     {%if post_data.author == current_user%}
         <img style='margin-left:71%' src="{{url_for('static', filename='images/settings_icon.png')}}" height='15' width='15'><a class='settings' href='/posts/post_settings/{{post_data.post_id}}'>პარამეტრები</a>
-        <br><br>
+        <br>
     {%endif%}
 
 
@@ -41,7 +41,20 @@
 
     <br><br>
 
-    <div class='authorDiv'><p class='author'>Posted By {{post_data.author_name}}</p></div>
+    <div class='authorDiv'><p class='author'>დაპოსტა {{post_data.author_name}}-მ</p></div>
 {%endif%}
+
+{%if answer_data.id == post_data.id%}
+        <hr class='answerSeparator'>
+        <pre class='answerCode'>{{answer_data.answer}}</pre>
+        <div class='authorDiv'><p class='author'>დაპოსტა {{answer_data.author_username}}-მ</p></div>
+{%endif%}
+
+<form action='' method='POST'>
+    <p>პასუხის დამატება</p>
+    <textarea name="answer" class='addPostCode' minlength="4" maxlength="600000" cols="81" rows="14" placeholder='შეიყვანე კოდი სადაც გაქვთ პრობლემა რომ უფრო მარტივი მისახვედრი იყოს.' required></textarea>
+    <button type='submit'>add</button>
+</form>
+
 
 {%endblock%}

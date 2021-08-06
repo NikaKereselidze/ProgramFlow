@@ -7,6 +7,9 @@
     <link rel='icon' href="{{url_for('static', filename='images/favicon.ico')}}" type='image/x-icon'/ >
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
+    {%if session['darkmode']%}
+    <link rel="stylesheet" href="{{url_for('static', filename='darkstyle.css')}}">
+    {%endif%}
     <title>ProgramFlow - პასუხი ყველა შეკითხვაზე</title>
 </head>
 <body>
@@ -15,7 +18,7 @@
       <a href='/'><li><img style='margin-top:-15px;margin-bottom: -17px;margin-left:30%;' src="{{url_for('static', filename='images/logo.png')}}" width="120" height="50" alt='ProgramFlow'></li></a>
         
       {%if 'user' in session%}
-        <a href='/user' class='usernameNavLogged'>{{username}}</a>
+        <a href='/user' class='usernameNavLogged'>{{session['username']}}</a>
       {%elif 'user' not in session%}
         <a href='/signup' class='navbarSignup'>რეგისტრაცია</a>
         <a href='/login' class='navbarLogin'>შესვლა</a>

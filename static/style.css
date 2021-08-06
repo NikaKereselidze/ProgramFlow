@@ -198,6 +198,16 @@ textarea {
     cursor: pointer;
 }
 
+.postsList {
+    text-decoration: none;
+    color: black;
+}
+
+.addplus {
+    text-decoration: none;
+    color: black;
+}
+
 .votesDiv {
     margin-left: 21%;
 }

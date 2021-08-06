@@ -1,0 +1,25 @@
+body {background-color: #212121;color: white;}
+ul {background-color: #353535;box-shadow: none;}
+hr {border:black solid 1px;}
+.loginGoogle {background-color: black;color: white;}
+.loginFacebook {background-color: black}
+.loginDiv {background-color: #353535;box-shadow: none;}
+.loginEmail {background-color: #353535;color: white;}
+.loginPassword {background-color: #353535;color: white;}
+.signupGoogle {background-color: black;color: white;}
+.signupFacebook {background-color: black}
+.signupDiv {background-color: #353535;box-shadow: none;}
+.signupUsername {background-color: #353535;color: white;}
+.signupEmail {background-color: #353535;color: white;}
+.signupPassword {background-color: #353535;color: white;}
+.addPostDiv {background-color: #353535;box-shadow: none;}
+.addPostTitle {background-color: #353535;color: white;}
+.addPostCode {background-color: #353535;color: white;}
+.searchInput {background-color: #353535;color: white;}
+.searchButton {background-color: #353535; color: white;}
+.usernameNavLogged {color: white;}
+.codeDiv {background-color: black}
+.buttonVote {background-color: #212121}
+.authorDiv {background-color: gray}
+.postsList {color: white;}
+.addplus {color: white;}
