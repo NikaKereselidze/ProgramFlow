@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='icon' href="{{url_for('static', filename='images/favicon.ico')}}" type='image/x-icon'/ >
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='media.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='flashes.css')}}">
     {%if session['darkmode']%}
     <link rel="stylesheet" href="{{url_for('static', filename='darkstyle.css')}}">
     {%endif%}
@@ -15,7 +16,7 @@
 <body>
 
     <ul>
-      <a href='/'><li><img style='margin-top:-15px;margin-bottom: -17px;margin-left:30%;' src="{{url_for('static', filename='images/logo.png')}}" width="120" height="50" alt='ProgramFlow'></li></a>
+      <a href='/'><li><img class='logo' src="{{url_for('static', filename='images/logo.png')}}" width="120" height="50" alt='ProgramFlow'></li></a>
         
       {%if 'user' in session%}
         <a href='/user' class='usernameNavLogged'>{{session['username']}}</a>
@@ -25,8 +26,7 @@
       {%endif%}
         
         <form method='POST' action='/posts'>
-            <input type="text" style="margin-bottom:10px;" name='search' class='searchInput' size='70' placeholder="Search..">
-            <button class='searchButton'>Search..</button>
+            <input type="text" style="margin-bottom:10px;" name='search' class='searchInput' placeholder="Search..">
         </form>
     </ul>
 
@@ -54,11 +54,13 @@
     <div class='footerDiv'>
       <div class='footerLogoDiv'>
         <a style="text-decoration:none;color:white;" href="/">
-          <img src="{{url_for('static', filename='/images/logowithouttxt.png')}}" alt='ProgramFlowLogo' height="50" width='50'>
+          <img src="{{url_for('static', filename='images/logowithouttxt.png')}}" alt='ProgramFlowLogo' height="50" width='50'>
         </a>
       </div>
       <div class='footerChildDiv1'>
         <a class='footerLink' href='/'>PROGRAMFLOW</a>
+        <br><br>
+        <a class='footerChildLink' href='/posts'>პოსტები</a>
         <br><br>
         <a class='footerChildLink' href='/posts'>პოსტები</a>
       </div>
@@ -68,11 +70,11 @@
         <a class='footerChildLink' href='/contact'>დაგვიკავშირდი</a>
       </div>
       <div class='footerChildDiv3'>
-        <a class='footerLink' href='/'>Discord სერვერი</a>
+        <a class='footerLink' href='https://discord.gg/6cP4FfVndE' target="_blank">Discord სერვერი</a>
         <br><br>
         <a style='text-decoration:none' href='https://discord.gg/6cP4FfVndE' target="_blank">
           <div class='discordWidgetDiv'>
-              <img class='discordWidgetLogo' src="{{url_for('static', filename='/images/discord_logo.png')}}" width="79" height="60">
+              <img class='discordWidgetLogo' src="{{url_for('static', filename='images/discord_logo.png')}}" width="79" height="60">
               <p class='discordWidgetText'><b>ProgramFlow</b></p>
           </div>
         </a>

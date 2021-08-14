@@ -1,6 +1,6 @@
 body {background-color: #212121;color: white;}
 ul {background-color: #353535;box-shadow: none;}
-hr {border:black solid 1px;}
+hr {border: black solid 1px;}
 .loginGoogle {background-color: black;color: white;}
 .loginFacebook {background-color: black}
 .loginDiv {background-color: #353535;box-shadow: none;}
@@ -19,7 +19,11 @@ hr {border:black solid 1px;}
 .searchButton {background-color: #353535; color: white;}
 .usernameNavLogged {color: white;}
 .codeDiv {background-color: black}
+.answerCodeDiv {background-color: black;}
 .buttonVote {background-color: #212121}
 .authorDiv {background-color: gray}
 .postsList {color: white;}
 .addplus {color: white;}
+.alert-success {color: lightgreen;background-color: green;border-color: darkgreen}
+.alert-danger{color: #8B0000;background-color: red;border-color: darkred}
+.modes {color:white;}

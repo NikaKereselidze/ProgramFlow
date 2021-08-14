@@ -3,12 +3,12 @@
 
 <br><br>
 
-{%if condition == 'True'%}
+{%if 'user' in session%}
 <h2>გამარჯობა {{session['username']}}!</h2>
-{%elif condition == 'False'%}
+{%else%}
 <p style="margin-left:8%">არ ხარ შესული ექაუნთზე! <a href="/login" style="text-decoration:none;color:rgb(0,140,250)">შესვლა</a></p>
 {%endif%}
-<a href='/darkmode'>Dark Mode</a>
-<a href='/defaultmode' style=''>Default Mode</a>
+<a class='modes' href='/darkmode'>Dark Mode</a>
+<a class='modes' href='/defaultmode' style=''>Default Mode</a>
 
 {%endblock%}
