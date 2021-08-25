@@ -1,0 +1,38 @@
+{%extends 'base.html'%}
+{%block content%}
+
+<br>
+<div class='postsContainer'>
+    <div class='postsHeaderDiv'>
+        <p class='postsHeader'>პოსტები</p>
+        <p class='addButtonPos'><a href='/posts/add' class='addButton'>პოსტის დამატება</a></p>
+    </div>
+    <p class='postsAmount'>
+        {%if session['search_bool']%}ნაპოვნია {%endif%}{{posts_amount}} პოსტები
+    </p>
+
+    {%if 'ვერ მოიძებნა' in posts%}
+        <p class='noPostsFound'>{{posts}}</p>
+    {%else%}
+        {%for post in posts%}
+            <div class='postsListContainer'>
+                <div class='postsListDiv'>
+                    <br>
+                    <div class="postsTitleDiv">
+                        <a href='/posts/{{post.post_id}}' class='postsTitle'>
+                            {{post.post}}
+                        </a>
+                    </div>
+                    <div class='codeDescAndAuthorPosDiv'>
+                        <div class="codeDescOverflow">
+                            <p class='postsCodeDesc'>{{post.code}}</p>
+                        </div>
+                        <p><a href='/user/{{post.author_name}}' class='postsAuthor'>{{post.author_name}}</a></p>
+                    </div>
+                </div>
+            </div>
+        {%endfor%}
+    {%endif%}
+</div>
+
+{%endblock%}

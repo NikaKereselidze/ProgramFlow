@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+{%block content%}
+
+<div class="contactDiv">
+    <form action="/58ff672ea1ba72c2478600cba7c94579c6d96fc5" method="POST">
+            <br>
+        <div class="contactNameDiv">
+            <p>სახელი</p>
+            <input type="text" name="name" class="contactName" required>
+        </div>
+            <br>
+        <div class="contactEmailDiv">
+            <p>Email-ი</p>
+            <input type="email" name="email" class="contactEmail" required>
+        </div>
+            <br>
+        <div class="contactMessageDiv">
+            <p>მესიჯი</p>
+            <textarea name="message" class="contactMessage" cols="26" rows="10" required></textarea>
+        </div>
+            <br><br>
+        <div class="contactSubmitDiv">
+            <button type="submit" class="contactSubmit">გაგზავნა</button>
+        </div>
+        <br>
+    </form>
+</div>
+
+{%endblock%}

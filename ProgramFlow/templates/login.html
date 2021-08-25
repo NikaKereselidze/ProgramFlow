@@ -1,0 +1,38 @@
+{%extends 'base.html'%}
+{%block content%}
+
+
+<div class='authApiContainer'>
+    <div class='authApiDiv'>
+        <a href='#' class='loginGoogle'><img src="{{url_for('static', filename='images/google_logo.png')}}" width="20" height="20" style='margin-right:10px;'>შესვლა Google-ით</a>
+        <a href='#' class='loginGithub'><img src="{{url_for('static', filename='images/github_logo.png')}}" width="20" height="20" style='margin-right:10px;'>შესვლა Github-ით</a>
+        <a href='#' class='loginFacebook'><img src="{{url_for('static', filename='images/facebook_logo.png')}}" width="20" height="20" style='margin-right:10px;'>შესვლა Facebook-ით</a>
+    </div>
+</div>
+
+<div class="loginContainer">
+    <div class="loginDiv">
+        <form action="" method="POST">
+                <br>
+            <div>
+                <p>Email-ი</p>
+                <input name="email" class="loginEmail" type="text">
+            </div>
+            <div>
+                <p>პაროლი</p>
+                <input name="password" class="loginPassword" type="password">
+            </div>
+                <br><br>
+            <div>
+                <button type="submit" class="loginSubmit"><div class='loginSubmitStretch'>შესვლა</div></button>
+            </div>
+                <br>
+        </form>
+    </div>
+</div>
+    <br>
+<div style="display: flex; justify-content:center;">
+    <p>არ ხარ დარეგისტრირებული? <a href="/signup" style="text-decoration:none;color:rgb(0,140,250)">დარეგისტრირდი</a></p>
+</div>
+
+{%endblock%}
