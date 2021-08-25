@@ -12,7 +12,7 @@
 
 <br>
     {%if post_data.author == current_user%}
-        <img style='margin-left:71%' src="{{url_for('static', filename='images/settings_icon.png')}}" height='15' width='15'><a class='settings' href='/posts/post_settings/{{post_data.post_id}}'>პარამეტრები</a>
+        <img src="{{url_for('static', filename='images/settings_icon.png')}}" height='15' width='15'><a class='settings' href='/posts/post_settings/{{post_data.post_id}}'>პარამეტრები</a>
         <br><br>
     {%endif%}
 
@@ -55,11 +55,16 @@
         <br><br>
     <div class='authorDiv'><p class='author'>უპასუხა {{answer.answer_username}}-მ</p></div>
 {%endfor%}
+<br>
+<hr class='answerSeparator'>
 
 <form action='' method='POST'>
-    <p>პასუხის დამატება</p>
-    <textarea name="answer" class='addPostCode' minlength="4" maxlength="600000" cols="81" rows="14" placeholder='შეიყვანე კოდი სადაც გაქვთ პრობლემა რომ უფრო მარტივი მისახვედრი იყოს.' required></textarea>
-    <button type='submit'>დამატება</button>
+    <div class="addAnswerDiv">
+        <p class='addAnswerTitle'>პასუხის დამატება</p>
+        <textarea name="answer" class='addAnswerInput' minlength="4" maxlength="600000" cols="90" rows="14" placeholder='შეიყვანე პასუხი პოსტზე..' required></textarea>
+        <br>
+        <button class='addAnswerSubmit' type='submit'>დამატება</button>
+    </div>
 </form>
 
 

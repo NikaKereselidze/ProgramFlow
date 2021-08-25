@@ -239,7 +239,7 @@ def post_page(id):
                 created_answer = Answers(answer_id=post_data.post_id, answer_author=session['user'], answer_username=session['username'], answer=answer, votes=0)
                 db.session.add(created_answer)
                 db.session.commit()
-                return render_template('post_page.html', post_data=post_data, answer_data=answer_data, current_user=session['user'])
+                return redirect(f'/posts/{id}')
         else:
             flash('არ ხართ შესული ექაუნთზე..')
             return redirect(url_for('home'))
@@ -306,7 +306,6 @@ def delete(id):
     except:
         flash("პოსტი ვერ წაიშალა..", category='error')
         return redirect(url_for('posts'))
-
 
 @app.errorhandler(404)
 def error(e):
