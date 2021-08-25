@@ -146,7 +146,7 @@ def posts():
         return render_template('posts.html', posts=posts, posts_amount=posts_amount)
     else:
         flash('არ ხარ შესული ექაუნთზე..', category='error')
-        return redirect(url_for('home'))
+        return redirect(url_for('login'))
 
 @app.route('/posts/add', methods=['POST', 'GET'])
 def add_post():

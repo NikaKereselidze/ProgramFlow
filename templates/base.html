@@ -18,16 +18,18 @@
     <ul>
       <a href='/'><li><img class='logo' title="Home" src="{{url_for('static', filename='images/logo.png')}}" width="120" height="50" alt='ProgramFlow'></li></a>
         
-      {%if 'user' in session%}
-        <a href='/user' class='usernameNavLogged'>{{session['username']}}</a>
-      {%elif 'user' not in session%}
-        <a href='/signup' class='navbarSignup'>რეგისტრაცია</a>
-        <a href='/login' class='navbarLogin'>შესვლა</a>
-      {%endif%}
-        
         <form method='POST' action='/posts'>
             <input type="text" style="margin-bottom:10px;" name='search' class='searchInput' placeholder="ძებნა..">
         </form>
+      {%if 'user' in session%}
+        <a href='/user' class='usernameNavLogged'>{{session['username']}}</a>
+      {%elif 'user' not in session%}
+        <div class="navbarAuthContainer">
+          <a href='/login' class='navbarLogin'>შესვლა</a>
+          <a href='/signup' class='navbarSignup'>რეგისტრაცია</a>
+        </div>
+      {%endif%}
+        
     </ul>
 </header>
   
