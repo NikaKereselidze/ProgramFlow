@@ -4,11 +4,12 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib
+import time
 import json
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secretkey'
+app.config['SECRET_KEY'] = '0b34r7kcr5yigpsdi9bc5'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 
@@ -227,6 +228,7 @@ def post_page(id):
                 created_answer = Answers(answer_id=post_data.post_id, answer_author=session['user'], answer_username=session['username'], answer=answer, votes=0)
                 db.session.add(created_answer)
                 db.session.commit()
+
                 return render_template('post_page.html', post_data=post_data, answer_data=answer_data, current_user=session['user'])
 
         else:
