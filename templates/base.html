@@ -14,9 +14,9 @@
     <title>ProgramFlow - პასუხი ყველა შეკითხვაზე</title>
 </head>
 <body>
-
+<header>
     <ul>
-      <a href='/'><li><img class='logo' src="{{url_for('static', filename='images/logo.png')}}" width="120" height="50" alt='ProgramFlow'></li></a>
+      <a href='/'><li><img class='logo' title="Home" src="{{url_for('static', filename='images/logo.png')}}" width="120" height="50" alt='ProgramFlow'></li></a>
         
       {%if 'user' in session%}
         <a href='/user' class='usernameNavLogged'>{{session['username']}}</a>
@@ -26,23 +26,28 @@
       {%endif%}
         
         <form method='POST' action='/posts'>
-            <input type="text" style="margin-bottom:10px;" name='search' class='searchInput' placeholder="Search..">
+            <input type="text" style="margin-bottom:10px;" name='search' class='searchInput' placeholder="ძებნა..">
         </form>
     </ul>
-
+</header>
+  
   {%with messages = get_flashed_messages(with_categories=True)%}
     {%if messages%}
       {%for category, message in messages%}
         {%if category == "error" %}
+          <br><br><br><br>
           <div class="alert alert-danger" role="alert">
             {{message}}
           </div>
         {%else%}
+          <br><br><br><br>
           <div class="alert alert-success" role="alert">
             {{message}}
           </div>
         {%endif%}
       {%endfor%}
+    {%else%}
+      <br><br><br>
     {%endif%}
   {%endwith%}
 
@@ -72,7 +77,7 @@
       <div class='footerChildDiv3'>
         <a class='footerLink' href='https://discord.gg/6cP4FfVndE' target="_blank">Discord სერვერი</a>
         <br><br>
-        <a style='text-decoration:none' href='https://discord.gg/6cP4FfVndE' target="_blank">
+        <a style='text-decoration:none' title='ProgramFlow შემოგვიერთდი!' href='https://discord.gg/6cP4FfVndE' target="_blank">
           <div class='discordWidgetDiv'>
               <img class='discordWidgetLogo' src="{{url_for('static', filename='images/discord_logo.png')}}" width="79" height="60">
               <p class='discordWidgetText'><b>ProgramFlow</b></p>

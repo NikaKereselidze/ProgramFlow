@@ -1,4 +1,4 @@
-.alert{position:relative;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;}
+.alert{position:fixed;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;margin-top:-13px;width:100%;}
 .alert-heading{color:inherit}
 .alert-link{font-weight:700}
 .alert-dismissible{padding-right:4rem}

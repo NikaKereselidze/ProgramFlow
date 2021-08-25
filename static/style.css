@@ -1,7 +1,11 @@
+*::selection {
+    background-color: lightgray;
+}
+
 body {
     padding: 0;
     margin: 0;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif, Calibri;
     background-color: #eff0f1;
 }
 
@@ -204,14 +208,106 @@ textarea {
     margin-left: 30%;
 }
 
-.postsList {
-    text-decoration: none;
-    color: black;
+.postsContainer {
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
-.addplus {
+.postsHeaderDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+.postsHeader {
+    font-size: 40px;
+    margin-bottom: -1px;
+    margin-top: 10px;
+    margin-left: 25px;
+}
+
+.postsListContainer {
+    display: flex;
+    margin-top: -1px;
+}
+
+.postsListDiv {
+    background-color: white;
+    border: 1px #ccc solid;
+    width: 100%;
+}
+
+.postsTitleDiv {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.postsTitle {
     text-decoration: none;
-    color: black;
+    color: #1683ff;
+    font-size: 25px;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.postsTitle:hover {
+    color: #25baff;
+}
+
+.postsAuthor {
+    text-decoration: none;
+    color: #4F99EF;
+    font-size: 17px;
+}
+
+.postsAuthor:hover {
+    color: #4FBCEF;
+}
+
+.postsCodeDesc {
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.codeDescOverflow {
+    width: 500px;
+}
+
+.codeDescAndAuthorPosDiv {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.postsAmount {
+    font-size: 20px;
+    margin-left: 25px;
+    margin-top: 1px;
+}
+
+.noPostsFound {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.addButton {
+    text-decoration: none;
+    color: white;
+    background-color: rgb(45, 143, 255);
+    padding: 12px;
+    border-radius: 3px;
+    margin-top: 50px;
+}
+
+.addButton:hover {
+    background-color: rgb(45, 103, 150);
+}
+
+.addButtonPos {
+    margin-top: 40px;
 }
 
 .votesDiv {
@@ -317,7 +413,7 @@ textarea {
     padding: 8px;
     margin-left: 65%;
     margin-right: 20%;
-    background-color: lightblue;
+    background-color: #d1ecff;
     text-align: center;
 }
 
@@ -456,6 +552,8 @@ ul {
     font-size:18px;
     box-shadow: 0px 3px 3px 0px lightgray;
     text-align: center;
+    position: fixed;
+    width: 100%;
 }
    
 li {
@@ -640,4 +738,18 @@ li:hover {
 .modes {
     color: black;
     text-decoration: none;
+}
+
+input:focus {
+    outline: 0;
+    box-shadow: 0px 0px 0px 4px #D5E7F5;
+    border: 1px #6CBBF7 solid;
+    border-radius: 3px;
+}
+
+textarea:focus {
+    outline: 0;
+    box-shadow: 0px 0px 0px 4px #D5E7F5;
+    border: 1px #6CBBF7 solid;
+    border-radius: 3px;
 }

@@ -129,10 +129,21 @@ def posts():
             return redirect(url_for('posts'))
         elif search != '':
             posts = Posts.query.filter(Posts.post.contains(search))
+            posts_amount = 0
+            for post in posts:
+                posts_amount += 1
+            if posts_amount == 0:
+                posts = f'ვერ მოიძებნა პოსტი საძიებო სიტყვით "{search}"'
+            session['search_bool'] = True
     else:
         posts = Posts.query.all()
+        posts_counter = Posts.query.all()
+        posts_amount = 0
+        for i in posts_counter:
+            posts_amount+=1
+        session.pop('search_bool', None)
     if 'user' in session:
-        return render_template('posts.html', posts=posts)
+        return render_template('posts.html', posts=posts, posts_amount=posts_amount)
     else:
         flash('არ ხარ შესული ექაუნთზე..', category='error')
         return redirect(url_for('home'))
@@ -228,9 +239,7 @@ def post_page(id):
                 created_answer = Answers(answer_id=post_data.post_id, answer_author=session['user'], answer_username=session['username'], answer=answer, votes=0)
                 db.session.add(created_answer)
                 db.session.commit()
-
                 return render_template('post_page.html', post_data=post_data, answer_data=answer_data, current_user=session['user'])
-
         else:
             flash('არ ხართ შესული ექაუნთზე..')
             return redirect(url_for('home'))
