@@ -41,7 +41,7 @@
     <div class='authorDiv'><p class='author'>პოსტის ავტორი: {{post_data.author_name}}</p></div>
 {%endif%}
 
-{%for answer in answer_data%}
+{%for answer in reversed(answer_data)%}
     <br><br>
     <hr class='answerSeparator'>
     <br>
