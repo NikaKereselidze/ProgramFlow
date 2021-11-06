@@ -226,7 +226,7 @@ def post_page(id):
                 db.session.commit()
                 if 'user' in session:
                     if post_data and answer_data:
-                        return render_template('post_page.html', post_data=post_data, answer_data=answer_data, current_user=session['user'], downvoted=session['downvoted'])
+                        return render_template('post_page.html', post_data=post_data, answer_data=reversed(answer_data), current_user=session['user'], downvoted=session['downvoted'])
                     elif post_data:
                         return render_template('post_page.html', post_data=post_data, current_user=session['user'], downvoted=session['downvoted'])
                     else:
@@ -236,7 +236,7 @@ def post_page(id):
                     return redirect(url_for('home'))
             if request.form.get('answer'):
                 answer = request.form.get('answer')
-                created_answer = Answers(answer_id=post_data.post_id, answer_author=session['user'], answer_username=session['username'], answer=answer, votes=0)
+                created_answer = Answers(answer_id=post_data.post_id, answer_author=session['user'], answer_username=session['username'], answer=reversed(answer), votes=0)
                 db.session.add(created_answer)
                 db.session.commit()
                 return redirect(f'/posts/{id}')
@@ -247,7 +247,7 @@ def post_page(id):
     else:
         if 'user' in session:
             if post_data:
-                return render_template('post_page.html', post_data=post_data, answer_data=answer_data, current_user=session['user'])
+                return render_template('post_page.html', post_data=post_data, answer_data=reversedanswer_data, current_user=session['user'])
             else:
                 flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
                 return redirect(url_for('posts'))
