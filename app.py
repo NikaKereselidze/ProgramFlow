@@ -236,7 +236,7 @@ def post_page(id):
                     return redirect(url_for('home'))
             if request.form.get('answer'):
                 answer = request.form.get('answer')
-                created_answer = Answers(answer_id=post_data.post_id, answer_author=session['user'], answer_username=session['username'], answer=reversed(answer), votes=0)
+                created_answer = Answers(answer_id=post_data.post_id, answer_author=session['user'], answer_username=session['username'], answer=answer, votes=0)
                 db.session.add(created_answer)
                 db.session.commit()
                 return redirect(f'/posts/{id}')
