@@ -247,7 +247,7 @@ def post_page(id):
     else:
         if 'user' in session:
             if post_data:
-                return render_template('post_page.html', post_data=post_data, answer_data=reversedanswer_data, current_user=session['user'])
+                return render_template('post_page.html', post_data=post_data, answer_data=reversed(answer_data), current_user=session['user'])
             else:
                 flash('ERROR: ვერ ჩამოიტვირთა მონაცემები..', category='error')
                 return redirect(url_for('posts'))
